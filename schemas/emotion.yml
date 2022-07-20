@@ -1,0 +1,52 @@
+---
+components:
+  schemas:
+    Emotion:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        emotions:
+          type: array
+          nullable: true
+          items:
+            type: string
+        emotions_endpos:
+          type: array
+          nullable: true
+          items:
+            type: number
+        emotions_mean:
+          type: array
+          nullable: true
+          items:
+            type: string
+        emotions_mean_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+        emotions_startpos:
+          type: array
+          nullable: true
+          items:
+            type: number
+        emotions_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - emotions
+        - emotions_endpos
+        - emotions_mean
+        - emotions_mean_weight
+        - emotions_startpos
+        - emotions_weight

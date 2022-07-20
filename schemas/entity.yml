@@ -1,0 +1,45 @@
+---
+components:
+  schemas:
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        named_entities:
+          type: array
+          nullable: true
+          items:
+            type: string
+        named_entities_endpos:
+          type: array
+          items:
+            type: string
+        named_entities_startpos:
+          type: array
+          nullable: true
+          items:
+            type: string
+        named_entities_type:
+          type: array
+          nullable: true
+          items:
+            type: string
+        named_entities_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - named_entities
+        - named_entities_endpos
+        - named_entities_startpos
+        - named_entities_type
+        - named_entities_weight

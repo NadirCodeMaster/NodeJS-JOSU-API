@@ -1,0 +1,54 @@
+{
+  "user_id": "fa2c0da4-7868-4e45-a1fc-da91f49689e8",
+  "__accounts_google": {
+    "115244245744751925401": {
+      "id": "115244245744751925401",
+      "autojoin_zoom": false,
+      "email": "vf.velt@gmail.com",
+      "first_name": "Oleksii",
+      "last_name": "Dorozhkin",
+      "name": "Oleksii Dorozhkin",
+      "provider": "google",
+      "refresh_token": "1//09XSkq-UFQ3q3CgYIARAAGAkSNwF-L9Ir1ZF_BBCLAyIdJapKdvKLqAfm73GU8fcuLLZ5kB4JxdYyq9owFQJr25J9z5g9OelUMCc"
+    },
+    "118049402880608871400": {
+      "id": "118049402880608871400",
+      "autojoin_zoom": false,
+      "email": "ll.td.fs@gmail.com",
+      "first_name": "anna",
+      "last_name": "avina",
+      "name": "anna avina",
+      "provider": "google",
+      "refresh_token": "1//09taWpixhlD5OCgYIARAAGAkSNwF-L9Iroo03ueFer3f91hxDHzPWUKnRNshgyA_OKomy8iG84cB7FWHQGsC4BuqmvO0D3Lr1S6Y"
+    }
+  },
+  "__accounts_microsoft": {},
+  "__calendars_google": {
+    "p2lev9ccj1qmcsk6gshqmbju2o@group.calendar.google.com": {
+      "id": "p2lev9ccj1qmcsk6gshqmbju2o@group.calendar.google.com",
+      "account": "115244245744751925401",
+      "channel": "unCKuGtMYKXBhiarfehz1WAnE9c",
+      "expires": "2020-12-31T16:15:30.000Z",
+      "provider": "google",
+      "refresh_token": "1//09XSkq-UFQ3q3CgYIARAAGAkSNwF-L9Ir1ZF_BBCLAyIdJapKdvKLqAfm73GU8fcuLLZ5kB4JxdYyq9owFQJr25J9z5g9OelUMCc"
+    },
+    "uk.ukrainian#holiday@group.v.calendar.google.com": {
+      "id": "uk.ukrainian#holiday@group.v.calendar.google.com",
+      "account": "115244245744751925401",
+      "channel": null,
+      "expires": null,
+      "provider": "google",
+      "refresh_token": "1//09XSkq-UFQ3q3CgYIARAAGAkSNwF-L9Ir1ZF_BBCLAyIdJapKdvKLqAfm73GU8fcuLLZ5kB4JxdYyq9owFQJr25J9z5g9OelUMCc"
+    }
+  },
+  "__calendars_microsoft": {},
+  "autojoin_zoom": false,
+  "devices": [],
+  "email": "vf.velt@gmail.com",
+  "first_name": "Oleksii",
+  "last_name": "Dorozhkin",
+  "password": "$2b$12$l6Lu2FAz3DC3wvBZjDwSoehZgg0MiHwBQwaaPfLgHIa9Y4iRfRH2W",
+  "profile_id": null,
+  "username": null,
+  "userpic_url": "https://lh3.googleusercontent.com/a-/AOh14Gjwet8KDrdXwsdyuxTNJbMrVHe5VRLhMgNAMqRE=s96-c"
+}

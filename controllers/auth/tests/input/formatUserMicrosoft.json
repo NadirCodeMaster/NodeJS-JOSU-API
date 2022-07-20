@@ -1,0 +1,24 @@
+{
+  "account": {
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users/$entity",
+    "displayName": "Vf Velt",
+    "surname": "Velt",
+    "givenName": "Vf",
+    "id": "3d2a8ee3053a8ca1",
+    "userPrincipalName": "vf.velt@outlook.com",
+    "businessPhones": [],
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null
+  },
+  "tokens": {
+    "token_type": "Bearer",
+    "scope": "https://graph.microsoft.com/User.Read https://graph.microsoft.com/Calendars.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Mail.ReadWrite",
+    "expires_in": 3600,
+    "ext_expires_in": 3600,
+    "access_token": "EwBoA8l6BAAU6k7+XVQzkGyMv7VHB/h4cHbJYRAAAYW7FsEPLKEZiEdtLxW8HfNKtJaeln59gn3ySBqHpwoHuIUr0GVRZQnCi+S3SNYsxMS1mc2V6BG/1p38eVp6/2eaVWTbGPE5uDghZrAevJA4gTsMJfLTgfnq2qgjPFB1Gbdl1v982xdv9+N32tZNwv8427lr8HYxNTG2TgzzOdSLA1zmVhvMxBeLqCk7maRqsbP0iy+lclPvmztNfdB84PM+J74gm42KhxEN4ZPh8dSmdRytU16bvKl3tPRsMpt7g+DEem7cLWarFj7tfXRlgOOh1Y69eg0xx7lirpxOlsnjhlf1C33cP0AjKhy4ImfyBLYNd4cFdXlsnzQ8F0c9KB8DZgAACFpnTjtNIrtKOALUOfTknhQ3G9gRZB8SuP+mGG34dR8SOKlSCSZ3bOcY5HDg8ibBE5pcfyXQlADK0rBdUFM9eHtQnfu/FHaXt1XHcuNoGxMSLofaTfCRSjXLa97gKeQz9XJxZ2S8bqxQWV/JRYMAyBkCRneSbdkwzpnrIgtFigBkOfHoSKvEv9zBWZasJRQv7PbzeZsLwUE8OPxzjVZ2GyWgPgIxWmDEBx/OmVhFQ2DiKiT3LY3PUXa7+Ec3FqB9vnhpn/SV5SoBI+y4a3MdHC94KLXzuOU5gabd9RxzMuxSQzzhbTnEgsKgt2Xpmj2ikjANjdeMInuvsugBnDl6OzTnX4frZ9oDFgFJL88XAAQx8Qa9WNV7kdQKmXQk6Bfw1Q4kUwb27Kounfxp9MU1RxGEaEdtgOLXEUKU3khQ+UiCi6RKv5eBv2+G4CKt4RFKfyhfeMYDIMnw+tq+4jyPUohk7RK+iHLoYBvO3XP8CAWWoB/8JkAyTQhASTqgtOYMAPdz1d27jceqlEvxC8If3OsUbxxIAUbF7d1TuhBPOc4OJJ04CSwN46kvCioIoEfyL0QjsyDJPUMU/De3GLvLvQq9ki4CtxSmE72BlgHmgRmMifOe2vInVjBJOkQcZHDEWNvqsbILqZ7QmFigsLihrs0244R+nab6u2LgGNKJs01vw5gKmmE2gFvhqUjFpEkPiDxAaN9rGHlPVMaAmqOlScrxQjDsm/hCbquQpQRLxNNEL/AqcwtLuBqsQSsoK7qg5V14dgI=",
+    "refresh_token": "M.R3_BAY.CeM0*DDZiQGhAVjTPsxVkbalVRe8G7YqS44D62mfJoHHPZxVSvVvRcwppDn6uPl7MAaRJT6aR8ZF5POBnxORAx1txADoAdx5KE2KNuzl!sEU*EiK6yTG5N*rUTZayE7m9zpAkDSXR*NBaAkkDidcAWMXBqiqA!lB71WDThdXzIrJT1CfuKV85!Xt84DTstjBSXpqJnWC2ojEdANOSPCGbuO8TBWsGRl6SPH9O*4nFJ4ZNsiUSnhgqGG5UlCLlmVk*tRfvX45tSSczDZRKms39LXHFQJcYgDeL9Ow2sXeihLfAeon6ODIdimS8fdrdcXYkIew6kVE8oSHcvLiUH1NDg0Y3TmG8zebBZW!pFWE648RMFNS4!M0ggp8wq*Ij1SkjBuZnNyN824Wno3*F0sYXWN*zt2z81hL2mwSEICYASxbkAQYUYJ2d79KMJtJ!m78wY!Y4EbrwGepA0f1nTfNJAe3ptRtTsNe2hswT4IeaEwOxDiMBViA9OcFqAdQW2WFOewNNjmGQTaW9tTrxf5Ksx4$"
+  }
+}

@@ -1,0 +1,49 @@
+---
+components:
+  requestBodies:
+    Queue:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Queue"
+  responses:
+    200_OK_Queue:
+      description: Read successfully
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Queue"
+  schemas:
+    Queue:
+      type: object
+      properties:
+        data:
+          type: array
+          nullable: true
+          maxItems: 256
+          items:
+            $ref: "#/components/schemas/QueueItem"
+      required:
+        - data
+    QueueItem:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        user_id:
+          $ref: "#/components/schemas/UUIDType"
+        account_id:
+          $ref: "#/components/schemas/UUIDType"
+        provider:
+          $ref: "#/components/schemas/ProviderType"
+        speaker_id:
+          $ref: "#/components/schemas/UUIDType"
+        text:
+          $ref: "#/components/schemas/NullableShortTextType"
+      required:
+        - id
+        - user_id
+        - account_id
+        - provider
+        - speaker_id

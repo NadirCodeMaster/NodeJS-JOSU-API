@@ -1,0 +1,115 @@
+---
+components:
+  parameters:
+    Email:
+      name: email
+      in: query
+      required: true
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/EmailType'
+      description: Email
+    Name:
+      name: name
+      in: query
+      required: true
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/NameType'
+      description: Name
+    ProfileId:
+      name: profile_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUIDType'
+      description: Profile id
+  requestBodies:
+    Profile:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/ProfileItem"
+            required:
+              - data
+    ProfileIdentity:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  identity:
+                    $ref: "#/components/schemas/ProfileIdentityItem"
+                  profile:
+                    $ref: "#/components/schemas/ProfileItem"
+                required:
+                  - identity
+                  - profile
+            required:
+              - data
+  responses:
+    200_OK_Profile:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/ProfileItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+  schemas:
+    ProfileIdentityItem:
+      type: object
+      properties:
+        profile_id:
+          $ref: "#/components/schemas/UUIDType"
+        email:
+          $ref: "#/components/schemas/EmailType"
+        name:
+          $ref: "#/components/schemas/NameType"
+      required:
+        - profile_id
+        - email
+        - name
+    ProfileItem:
+      type: object
+      properties:
+        profile_id:
+          $ref: "#/components/schemas/UUIDType"
+        email:
+          $ref: "#/components/schemas/EmailType"
+        emails:
+          type: array
+          minItems: 0
+          maxItems: 16
+          items:
+            $ref: "#/components/schemas/EmailType"
+        name:
+          $ref: "#/components/schemas/NullableNameType"
+        names:
+          type: array
+          minItems: 0
+          maxItems: 16
+          items:
+            $ref: "#/components/schemas/NullableNameType"
+      required:
+        - profile_id
+        - email
+        - emails
+        - name
+        - names

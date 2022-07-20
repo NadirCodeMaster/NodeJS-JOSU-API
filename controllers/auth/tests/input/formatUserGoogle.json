@@ -1,0 +1,20 @@
+{
+  "account": {
+    "id": "115244245744751925401",
+    "email": "vf.velt@gmail.com",
+    "verified_email": true,
+    "name": "Oleksii Dorozhkin",
+    "given_name": "Oleksii",
+    "family_name": "Dorozhkin",
+    "picture": "https://lh3.googleusercontent.com/a-/AOh14Gjwet8KDrdXwsdyuxTNJbMrVHe5VRLhMgNAMqRE=s96-c",
+    "locale": "en"
+  },
+  "tokens": {
+    "access_token": "ya29.a0AfH6SMCsm5-ZFTfWhdRqPms2LEbohYSmRTmax27xpwOYBiZJ8QLqV5-tHlnLpHaDOiL7Q9pMEBItpzqeEiDK6TnNjamk5dTqj2hLJljWlEad0Eqj5P-ao2X1xGGv9_cX-_O9jkr7-ZpG_ZEMTQE3zXyDl_bAmkcOSSgqH_prOc4",
+    "expires_in": 3599,
+    "refresh_token": "1//09vpA9SnApDT_CgYIARAAGAkSNwF-L9IroBWgiU71fUzxmXV_KEB9tE4hYuO2x_sqevrzD-2W6_beTONTRBA8DoVBvOwQRoDyR7s",
+    "scope": "openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://mail.google.com/ https://www.googleapis.com/auth/calendar",
+    "token_type": "Bearer",
+    "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjZhZGMxMDFjYzc0OThjMDljMDEwZGMzZDUxNzZmYTk3Yzk2MjdlY2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2ODAzNDQxMjQxMDQtcDFocmdpbmZtM2E1ajFwYjNhYmhydmVvMTk2YjVwamguYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2ODAzNDQxMjQxMDQtcDFocmdpbmZtM2E1ajFwYjNhYmhydmVvMTk2YjVwamguYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTUyNDQyNDU3NDQ3NTE5MjU0MDEiLCJlbWFpbCI6InZmLnZlbHRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJELUtPYUZWVHpEMkFmMTRQcTZ4X2ZBIiwibmFtZSI6Ik9sZWtzaWkgRG9yb3poa2luIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdqd2V0OEtEcmRYd3NkeXV4VE5KYk1yVkhlNVZSTGhNZ05BTXFSRT1zOTYtYyIsImdpdmVuX25hbWUiOiJPbGVrc2lpIiwiZmFtaWx5X25hbWUiOiJEb3JvemhraW4iLCJsb2NhbGUiOiJlbiIsImlhdCI6MTYwODgyNDg4OSwiZXhwIjoxNjA4ODI4NDg5fQ.r7vTr9B0dHBYdvtU6gVny480Dp1N_5iSgVVNE5gGX8kUiBH_VqzxQgRzluR18VbLVkixIA9qVGDtgSSYA14v9I1NaXODbR3Q-Gu8F0Gk0A4MVBRY53PeeX3j-F1-sueNQx19-NFFGLVQ27-TH9m0Hx4UwTKggKCO0TKfhnrVcLM06DSt1A7brWbrN3hzPeVbE6kkstF9KHKM-p_i88WUgCnLPxi8kOhDq9p-EQcVi6-Mqz5W_XNPmdQXmLnyfUXEG3SocVW0pSan3jrZmRzxVWNpxS8hdCGqhnpCbNRzcyEF9e5cFh93lG5-_7G5IM-5bGhN2Gv9nMmR-9pf47AD-w"
+  }
+}

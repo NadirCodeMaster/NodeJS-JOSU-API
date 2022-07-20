@@ -1,0 +1,218 @@
+---
+components:
+  headers:
+    XAuthToken:
+      required: false
+      schema:
+        $ref: "#/components/schemas/JWTAuthTokenType"
+  parameters:
+    Account:
+      in: path
+      name: account
+      required: true
+      schema:
+        $ref: "#/components/schemas/StringIdType"
+      description: OAuth2 account
+    Code:
+      in: query
+      name: code
+      required: true
+      schema:
+        type: string
+        minLength: 32
+        maxLength: 4096
+        example: "4/6AGn8L5tSw0J5jQEJyNT6CWiIu1dq6VEADOgevh0MD7jHtnxI"
+      allowReserved: true
+      description: OAuth2 code
+    HD:
+      in: query
+      name: hd
+      required: false
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+        example: "josu.ai"
+      description: Parameter specific to Gsuite-connected business domains
+    Platform:
+      in: path
+      name: platform
+      required: true
+      schema:
+        type: string
+        enum:
+          - mobile
+          - web
+      description: User platform
+    Prompt:
+      in: query
+      name: prompt
+      required: false
+      schema:
+        type: string
+        enum:
+          - consent
+          - none
+          - select_account
+      description: OAuth2 login type
+    RedirectURI:
+      in: query
+      name: redirect_uri
+      required: false
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 96
+        example: "https%3A%2F%2Fapi.josu.ai%2Fv0%2Fauth%2Flogin%2Fgoogle"
+      description: OAuth2 redirect_uri
+    ResetToken:
+      in: path
+      name: reset_token
+      required: true
+      schema:
+        $ref: "#/components/schemas/UUIDType"
+      description: Id for resetting password
+    Scope:
+      in: query
+      name: scope
+      required: false
+      schema:
+        type: string
+        minLength: 4
+        maxLength: 512
+        example: "email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth"
+      allowReserved: true
+      description: OAuth2 grant scope
+    SessionState:
+      in: query
+      name: session_state
+      required: false
+      schema:
+        type: string
+      allowReserved: true
+      description: Azure-specific parameter
+    State:
+      in: query
+      name: state
+      required: false
+      schema:
+        $ref: "#/components/schemas/JWTAuthTokenType"
+      description: Josu JWT token
+    User:
+      in: query
+      name: authuser
+      required: false
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 2
+        example: "0"
+      description: >-
+        Google-specific parameter similar to &prompt=.
+        See https://stackoverflow.com/a/13379472
+    Username:
+      name: username
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/UsernameType"
+      description: Josu username
+  requestBodies:
+    PasswordLogin:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  user_id:
+                    $ref: "#/components/schemas/UUIDType"
+                  username:
+                    $ref: "#/components/schemas/UsernameType"
+                  password:
+                    $ref: "#/components/schemas/PasswordType"
+                required:
+                  - user_id
+                  - username
+                  - password
+            required:
+              - data
+    PasswordReset:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  base_uri:
+                    $ref: "#/components/schemas/URLType"
+                  user_id:
+                    $ref: "#/components/schemas/UUIDType"
+                required:
+                  - base_uri
+                  - user_id
+            required:
+              - data
+  responses:
+    200_OK_Auth:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/AccountIdItem"
+                  - $ref: "#/components/schemas/UsernameItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    202_Accepted_Auth:
+      description: Command successful
+      headers:
+        X-Auth-Token:
+          $ref: "#/components/headers/XAuthToken"
+      content:
+        text/html:
+          schema:
+            type: string
+            format: binary
+        application/json:
+          schema:
+            $ref: "#/components/responses/202_Accepted"
+    302_Found_Auth:
+      description: Command successful
+      headers:
+        X-Auth-Token:
+          $ref: "#/components/headers/XAuthToken"
+  schemas:
+    AccountIdItem:
+      type: object
+      properties:
+        account:
+          $ref: "#/components/schemas/StringIdType"
+        user_id:
+          $ref: "#/components/schemas/UUIDType"
+      required:
+        - account
+        - user_id
+    UsernameItem:
+      type: object
+      properties:
+        username:
+          $ref: "#/components/schemas/UsernameType"
+        user_id:
+          $ref: "#/components/schemas/UUIDType"
+      required:
+        - username
+        - user_id

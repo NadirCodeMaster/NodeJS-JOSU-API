@@ -1,0 +1,57 @@
+---
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        provider:
+          type: string
+          enum:
+            - gmail
+            - googlecalendar
+            - instagram
+            - linkedin
+            - microsoftcalendar
+            - outlook
+            - slack
+            - twitter
+            - zoom
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        account_nickname:
+          type: string
+          minLength: 1
+        created:
+          type: string
+          format: date-time
+        is_active:
+          type: boolean
+        last_sync:
+          type: string
+          format: date-time
+        refresh_token:
+          type: string
+          minLength: 32
+      required:
+        - provider
+        - id
+        - user_id
+        - account_nickname
+        - created
+        - is_active
+        - last_sync
+    Accounts:
+      type: object
+      properties:
+        data:
+          type: array
+          nullable: true
+          maxItems: 256
+          items:
+            $ref: '#/components/schemas/Account'
+      required:
+        - data

@@ -1,0 +1,160 @@
+---
+components:
+  schemas:
+    GmailEmail:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 16
+          maxLength: 16
+        user_id:
+          type: string
+          format: uuid
+        account_id:
+          type: string
+          format: uuid
+        category:
+          type: array
+          nullable: true
+          maxItems: 5
+          items:
+            $ref: "#/components/schemas/CategoryType"
+          uniqueItems: true
+        category_ground_truth:
+          $ref: "#/components/schemas/CategoryType"
+        confidence_category:
+          type: array
+          nullable: true
+          maxItems: 5
+          items:
+            type: number
+            minimum: 0
+            maximum: 1
+        confidence_is_person:
+          type: number
+          minimum: 0
+          maximum: 1
+        date_received:
+          type: string
+          format: date-time
+        email_attachment_names:
+          type: array
+          nullable: true
+          items:
+            type: string
+            minLength: 32
+        email_content:
+          type: string
+        email_from:
+          type: string
+          format: email
+        email_subject:
+          type: string
+        email_to:
+          type: array
+          items:
+            type: string
+            format: email
+        emotions:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/EmotionType"
+        emotions_endpos:
+          type: array
+          nullable: true
+          items:
+            type: integer
+        emotions_mean:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/EmotionType"
+        emotions_mean_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+            minimum: 0
+            maximum: 1
+        emotions_startpos:
+          type: array
+          nullable: true
+          items:
+            type: integer
+        emotions_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+            minimum: 0
+            maximum: 1
+        is_person:
+          type: boolean
+        keywords:
+          type: array
+          items:
+            type: string
+        keywords_endpos:
+          type: array
+          items:
+            type: string
+        keywords_startpos:
+          type: array
+          items:
+            type: string
+        keywords_weight:
+          type: array
+          items:
+            type: number
+            minimum: 0
+        labels:
+          type: array
+          items:
+            type: string
+        named_entities:
+          type: array
+          items:
+            type: string
+        named_entities_endpos:
+          type: array
+          items:
+            type: string
+        named_entities_startpos:
+          type: array
+          items:
+            type: string
+        named_entities_type:
+          type: array
+          items:
+            type: string
+        named_entities_weight:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+        speaker_id:
+          type: string
+          format: uuid
+        thread_id:
+          type: string
+          minLength: 16
+          maxLength: 16
+        word_count:
+          type: integer
+          minimum: 5
+      required:
+        - id
+        - user_id
+        - account_id
+        - date_received
+        - email_attachment_names
+        - email_content
+        - email_from
+        - email_subject
+        - email_to
+        - is_solitary_recipient
+        - labels
+        - speaker_id
+        - thread_id

@@ -1,0 +1,4815 @@
+openapi: 3.0.0
+info:
+  title: api.josu.ai
+  version: 0.2.0
+x-tagGroups:
+  - name: Auth
+    tags:
+      - connect
+      - login
+      - password
+      - query
+  - name: Meetings
+    tags:
+      - meetings
+  - name: Profiles
+    tags:
+      - profiles
+  - name: Spec
+    tags:
+      - spec
+  - name: Users
+    tags:
+      - users
+  - name: Legacy
+    tags:
+      - accounts
+      - analytics
+      - annotations
+      - auth
+      - channels
+      - emails
+      - emotions
+      - gmail
+      - messages
+      - outlook
+      - queue
+      - recording
+      - recordings
+      - social
+      - speaker
+      - topics
+      - twitter
+      - workspaces
+paths:
+  /v0/analytics/talkbreakdown:
+    post:
+      summary: Get talk breakdown between speakers for a timeframe
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                speakers:
+                  type: array
+                start:
+                  type: string
+                end:
+                  type: string
+              required:
+                - speakers
+                - start
+                - end
+      responses:
+        '200':
+          description: Success
+  '/v0/annotations/speaker/{speakerId}':
+    get:
+      summary: Get all annotations for given speaker
+      tags:
+        - speaker
+      parameters:
+        - in: path
+          name: speakerId
+          required: true
+          schema:
+            type: string
+          description: Speaker id
+      responses:
+        '200':
+          description: Success
+  '/v0/annotations/recording/{recordingId}':
+    get:
+      summary: Get all annotations for given recording
+      tags:
+        - recording
+      parameters:
+        - in: path
+          name: recordingId
+          required: true
+          schema:
+            type: string
+          description: Recording id
+      responses:
+        '200':
+          description: Success
+  '/v0/annotations/{annotationId}':
+    get:
+      summary: Get annotation by annotation id
+      tags:
+        - annotations
+      parameters:
+        - in: path
+          name: annotationId
+          required: true
+          schema:
+            type: string
+          description: Annotation id
+      responses:
+        '200':
+          description: Success
+    delete:
+      summary: Delete annotation by annotation id
+      tags:
+        - annotations
+      parameters:
+        - in: path
+          name: annotationId
+          required: true
+          schema:
+            type: string
+          description: Annotation id
+      responses:
+        '204':
+          description: Success
+  /v0/annotations:
+    post:
+      summary: Create new annotation
+      tags:
+        - annotations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                annotate:
+                  type: string
+              required:
+                - annotate
+      responses:
+        '201':
+          description: Success
+  '/v0/auth/connect/google/{platform}':
+    get:
+      summary: Connect Google account
+      tags:
+        - connect
+      parameters:
+        - $ref: '#/components/parameters/Code'
+        - $ref: '#/components/parameters/HD'
+        - $ref: '#/components/parameters/Platform'
+        - $ref: '#/components/parameters/Prompt'
+        - $ref: '#/components/parameters/RedirectURI'
+        - $ref: '#/components/parameters/Scope'
+        - $ref: '#/components/parameters/State'
+        - $ref: '#/components/parameters/User'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted_Auth'
+  '/v0/auth/connect/microsoft/{platform}':
+    get:
+      summary: Connect Microsoft account
+      tags:
+        - connect
+      parameters:
+        - $ref: '#/components/parameters/Code'
+        - $ref: '#/components/parameters/Platform'
+        - $ref: '#/components/parameters/State'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted_Auth'
+  '/v0/auth/login/google/{platform}':
+    get:
+      summary: Login with Google account
+      tags:
+        - login
+      parameters:
+        - $ref: '#/components/parameters/Code'
+        - $ref: '#/components/parameters/HD'
+        - $ref: '#/components/parameters/Platform'
+        - $ref: '#/components/parameters/Prompt'
+        - $ref: '#/components/parameters/RedirectURI'
+        - $ref: '#/components/parameters/Scope'
+        - $ref: '#/components/parameters/User'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted_Auth'
+  '/v0/auth/login/microsoft/{platform}':
+    get:
+      summary: Login with Microsoft account
+      tags:
+        - login
+      parameters:
+        - $ref: '#/components/parameters/Code'
+        - $ref: '#/components/parameters/Platform'
+        - $ref: '#/components/parameters/SessionState'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted_Auth'
+  /v0/auth/login/password:
+    post:
+      summary: Login with password
+      tags:
+        - login
+      requestBody:
+        $ref: '#/components/requestBodies/PasswordLogin'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted_Auth'
+  /v0/auth/logout:
+    post:
+      summary: Logout
+      tags:
+        - login
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted_Auth'
+  '/v0/auth/lookup/{account}/account':
+    get:
+      summary: Lookup account
+      tags:
+        - query
+      parameters:
+        - $ref: '#/components/parameters/Account'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Auth'
+  '/v0/auth/lookup/{username}/username':
+    get:
+      summary: Lookup username
+      tags:
+        - query
+      parameters:
+        - $ref: '#/components/parameters/Username'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Auth'
+  /v0/auth/password/reset:
+    post:
+      summary: Create reset password link
+      tags:
+        - password
+      requestBody:
+        $ref: '#/components/requestBodies/PasswordReset'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted_Auth'
+  '/v0/auth/password/reset/{reset_token}':
+    get:
+      summary: Reset password
+      tags:
+        - password
+      parameters:
+        - $ref: '#/components/parameters/ResetToken'
+      responses:
+        '302':
+          $ref: '#/components/responses/302_Found_Auth'
+  /v0/auth/register:
+    post:
+      summary: User registration
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                  pattern: '^[a-zA-Z0-9\!\?_\+]+$'
+                firstName:
+                  type: string
+                  minLength: 1
+                  maxLength: 16
+                  pattern: '^[a-zA-Z0-9]+$'
+                lastName:
+                  type: string
+                  minLength: 1
+                  maxLength: 16
+                  pattern: '^[a-zA-Z0-9]+$'
+              required:
+                - email
+                - password
+                - firstName
+                - lastName
+      responses:
+        '201':
+          description: Success
+  '/v0/auth/legacy/{provider}':
+    get:
+      summary: Generic OAuth2 endpoint for data connection provider
+      tags:
+        - auth
+      parameters:
+        - in: path
+          name: provider
+          required: true
+          schema:
+            type: string
+            enum:
+              - gmail
+              - googlecalendar
+              - instagram
+              - linkedin
+              - microsoftcalendar
+              - outlook
+              - zoom
+          description: Data provider
+        - $ref: '#/components/parameters/Code'
+        - $ref: '#/components/parameters/HD'
+        - $ref: '#/components/parameters/Prompt'
+        - $ref: '#/components/parameters/RedirectURI'
+        - $ref: '#/components/parameters/Scope'
+        - $ref: '#/components/parameters/User'
+      responses:
+        '200':
+          description: Success
+  /v0/auth/slack:
+    get:
+      summary: OAuth2 endpoint for Slack
+      tags:
+        - auth
+      parameters:
+        - in: query
+          name: code
+          required: true
+          schema:
+            type: string
+          description: OAuth2 code
+        - in: query
+          name: state
+          allowEmptyValue: true
+          schema:
+            type: string
+          description: Additional security parameter for OAuth2
+      responses:
+        '200':
+          description: Success
+  /v0/auth/twitter:
+    post:
+      summary: OAuth2 endpoint for Twitter
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oauth_token:
+                  type: string
+                oauth_token_secret:
+                  type: string
+                account_nickname:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - oauth_token
+                - oauth_token_secret
+                - account_nickname
+                - user_id
+      responses:
+        '200':
+          description: Success
+  '/v0/emotion/speaker/{speaker_id}':
+    get:
+      summary: Get emotional analysis by speaker
+      tags:
+        - emotions
+      parameters:
+        - in: path
+          name: speaker_id
+          required: true
+          schema:
+            type: string
+          description: Speaker id
+      responses:
+        '200':
+          description: Success
+  '/v0/emotion/topic/{topic_id}':
+    get:
+      summary: Get emotional analysis by topic
+      tags:
+        - emotions
+      parameters:
+        - in: path
+          name: topic_id
+          required: true
+          schema:
+            type: string
+          description: Topic id
+      responses:
+        '200':
+          description: Success
+  /v0/emotion/watson:
+    post:
+      summary: Get IMB Watson record
+      tags:
+        - emotions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    user_id:
+                      type: string
+                    provider:
+                      type: string
+                      enum:
+                        - gmail
+                        - googlecalendar
+                        - instagram
+                        - linkedin
+                        - microsoftcalendar
+                        - outlook
+                        - twitter
+                        - zoom
+                    id:
+                      type: string
+                    account_id:
+                      type: string
+                    document_tone_ids:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    document_tone_names:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    document_tone_scores:
+                      type: array
+                      nullable: true
+                      items:
+                        type: number
+                    sentences_id:
+                      type: array
+                      nullable: true
+                      items:
+                        type: number
+                    sentences:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    sentences_score:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    sentences_tone_id:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    sentences_tone_name:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    speaker_id:
+                      type: string
+                  required:
+                    - user_id
+                    - provider
+                    - id
+                    - account_id
+                    - document_tone_ids
+                    - document_tone_names
+                    - document_tone_scores
+                    - sentences_id
+                    - sentences
+                    - sentences_score
+                    - sentences_tone_id
+                    - sentences_tone_name
+                    - speaker_id
+              required:
+                - data
+      responses:
+        '201':
+          description: Success
+  '/v0/emotion/watson/{user_id}':
+    get:
+      summary: Get IBM Watson emotions by user_id
+      tags:
+        - emotions
+      parameters:
+        - in: path
+          name: topic_id
+          required: true
+          schema:
+            type: string
+          description: User id
+      responses:
+        '200':
+          description: Success
+  /v0/gmail:
+    post:
+      summary: Create Gmail email
+      tags:
+        - gmail
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/GmailEmail'
+              required:
+                - data
+      responses:
+        '201':
+          $ref: '#/components/responses/201_Created'
+  /v0/gmail/category:
+    put:
+      summary: Set category of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Category'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/gmail/emotions:
+    put:
+      summary: Set emotions of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Emotion'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/gmail/entities:
+    put:
+      summary: Set named entities of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Entity'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/gmail/groundtruth:
+    put:
+      summary: Set ground truth of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/GroundTruth'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/gmail/keywords:
+    put:
+      summary: Set keywords of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Keyword'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/gmail/person:
+    put:
+      summary: Set person category of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Person'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/gmail/topics:
+    put:
+      summary: Set topics of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Topic'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/gmail/wordcount:
+    put:
+      summary: Set word count of Gmail emails
+      tags:
+        - analytics
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Wordcount'
+              required:
+                - data
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  '/v0/gmail/account/{account_id}':
+    get:
+      summary: Get emails by Gmail account
+      tags:
+        - gmail
+      security:
+        - UserIdCookie: []
+          UserIdSecCookie: []
+      parameters:
+        - in: path
+          name: account_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Gmail account
+      responses:
+        '200':
+          description: Success
+  /v0/meetings:
+    post:
+      summary: Create meeting
+      tags:
+        - meetings
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Meeting'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/meetings/{user_id}':
+    get:
+      summary: Get meetings
+      tags:
+        - meetings
+      security:
+        - Basic: []
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/After'
+        - $ref: '#/components/parameters/Before'
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/FetchSize'
+        - $ref: '#/components/parameters/PageState'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Meeting'
+  '/v0/meetings/{user_id}/{start}/{id}':
+    get:
+      summary: Get meeting
+      tags:
+        - meetings
+      security:
+        - Basic: []
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/Start'
+        - $ref: '#/components/parameters/MeetingId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Meeting'
+    put:
+      summary: Update meeting
+      tags:
+        - meetings
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Meeting'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/Start'
+        - $ref: '#/components/parameters/MeetingId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+    delete:
+      summary: Delete meeting
+      tags:
+        - meetings
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/Start'
+        - $ref: '#/components/parameters/MeetingId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  /v0/outlook:
+    post:
+      summary: Create Outlook email
+      tags:
+        - outlook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    user_id:
+                      type: string
+                    account_id:
+                      type: string
+                    bcc_recipients:
+                      type: array
+                      items:
+                        type: string
+                    category:
+                      type: array
+                      items:
+                        type: string
+                    category_ground_truth:
+                      type: string
+                    cc_recipients:
+                      type: array
+                    change_key:
+                      type: string
+                    confidence_category:
+                      type: array
+                      items:
+                        type: number
+                    confidence_is_person:
+                      type: number
+                    conversation_id:
+                      type: string
+                    conversation_index:
+                      type: string
+                    created_datetime:
+                      type: string
+                    date_received:
+                      type: string
+                    email_content:
+                      type: string
+                    email_from:
+                      type: string
+                    email_subject:
+                      type: string
+                    email_to:
+                      type: array
+                      items:
+                        type: string
+                    emotions:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    emotions_endpos:
+                      type: array
+                      nullable: true
+                      items:
+                        type: number
+                    emotions_mean:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                    emotions_mean_weight:
+                      type: array
+                      nullable: true
+                      items:
+                        type: number
+                    emotions_startpos:
+                      type: array
+                      nullable: true
+                      items:
+                        type: number
+                    emotions_weight:
+                      type: array
+                      nullable: true
+                      items:
+                        type: number
+                    flag_status:
+                      type: string
+                    has_attachments:
+                      type: boolean
+                    importance:
+                      type: string
+                    inference_classification:
+                      type: string
+                    internet_message_id:
+                      type: string
+                    is_delivery_receipt_requested:
+                      type: boolean
+                    is_draft:
+                      type: boolean
+                    is_person:
+                      type: boolean
+                    is_read:
+                      type: boolean
+                    is_read_receipt_requested:
+                      type: boolean
+                    is_solitary_recipient:
+                      type: boolean
+                    keywords:
+                      type: array
+                      items:
+                        type: string
+                    keywords_endpos:
+                      type: array
+                      items:
+                        type: string
+                    keywords_startpos:
+                      type: array
+                      items:
+                        type: string
+                    keywords_weight:
+                      type: array
+                      items:
+                        type: number
+                    labels:
+                      type: array
+                      items:
+                        type: string
+                    last_modified_datetime:
+                      type: string
+                    location:
+                      type: string
+                    named_entities:
+                      type: array
+                      items:
+                        type: string
+                    named_entities_endpos:
+                      type: array
+                      items:
+                        type: string
+                    named_entities_startpos:
+                      type: array
+                      items:
+                        type: string
+                    named_entities_type:
+                      type: array
+                      items:
+                        type: string
+                    named_entities_weight:
+                      type: array
+                      items:
+                        type: number
+                    parent_folder_id:
+                      type: string
+                    reply_to:
+                      type: array
+                      items:
+                        type: string
+                    sender_name:
+                      type: string
+                    sender_address:
+                      type: string
+                    sent_datetime:
+                      type: string
+                    speaker_id:
+                      type: string
+                    web_link:
+                      type: string
+                    word_count:
+                      type: number
+                  required:
+                    - id
+                    - user_id
+                    - account_id
+                    - bcc_recipients
+                    - cc_recipients
+                    - change_key
+                    - conversation_id
+                    - conversation_index
+                    - created_datetime
+                    - date_received
+                    - email_content
+                    - email_from
+                    - email_subject
+                    - email_to
+                    - flag_status
+                    - has_attachments
+                    - importance
+                    - inference_classification
+                    - internet_message_id
+                    - is_delivery_receipt_requested
+                    - is_draft
+                    - is_read
+                    - is_read_receipt_requested
+                    - is_solitary_recipient
+                    - labels
+                    - last_modified_datetime
+                    - parent_folder_id
+                    - reply_to
+                    - sender_name
+                    - sender_address
+                    - sent_datetime
+                    - speaker_id
+                    - web_link
+      responses:
+        '201':
+          description: Success
+  /v0/outlook/category:
+    put:
+      summary: Set category of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      category:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      confidence_category:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - category
+                      - confidence_category
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  /v0/outlook/emotions:
+    put:
+      summary: Set emotions of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      emotions:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      emotions_endpos:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                      emotions_mean:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      emotions_mean_weight:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                      emotions_startpos:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                      emotions_weight:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - emotions
+                      - emotions_mean
+                      - emotions_mean_weight
+                      - emotions_startpos
+                      - emotions_weight
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  /v0/outlook/entities:
+    put:
+      summary: Set named entities of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      named_entities:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      named_entities_endpos:
+                        type: array
+                        items:
+                          type: string
+                      named_entities_startpos:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      named_entities_type:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      named_entities_weight:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - named_entities
+                      - named_entities_endpos
+                      - named_entities_startpos
+                      - named_entities_type
+                      - named_entities_weight
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  /v0/outlook/groundtruth:
+    put:
+      summary: Set ground truth of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      category_ground_truth:
+                        type: string
+                        nullable: true
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - category_ground_truth
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  /v0/outlook/keywords:
+    put:
+      summary: Set keywords of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      keywords:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      keywords_endpos:
+                        type: array
+                        items:
+                          type: string
+                      keywords_startpos:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      keywords_weight:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - keywords
+                      - keywords_endpos
+                      - keywords_startpos
+                      - keywords_weight
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  /v0/outlook/person:
+    put:
+      summary: Set person category of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      confidence_is_person:
+                        type: number
+                        nullable: true
+                      is_person:
+                        type: boolean
+                        nullable: true
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - confidence_is_person
+                      - is_person
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  /v0/outlook/topics:
+    put:
+      summary: Set topics of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      topics:
+                        type: array
+                        nullable: true
+                        items:
+                          type: string
+                      topics_weight:
+                        type: array
+                        nullable: true
+                        items:
+                          type: number
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - topics
+                      - topics_weight
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  /v0/outlook/wordcount:
+    put:
+      summary: Set word count of Outlook emails
+      tags:
+        - analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      user_id:
+                        type: string
+                      account_id:
+                        type: string
+                      word_count:
+                        type: number
+                    required:
+                      - id
+                      - user_id
+                      - account_id
+                      - word_count
+              required:
+                - data
+      responses:
+        '204':
+          description: Success
+  '/v0/outlook/account/{account_id}':
+    get:
+      summary: Get emails by Outlook account
+      tags:
+        - outlook
+      parameters:
+        - in: path
+          name: account_id
+          required: true
+          schema:
+            type: string
+          description: Outlook account
+      responses:
+        '200':
+          description: Success
+  /v0/profiles:
+    post:
+      summary: Create profile
+      tags:
+        - profiles
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Profile'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+    get:
+      summary: Get profile by email
+      tags:
+        - profiles
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/Email'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Profile'
+  '/v0/profiles/{profile_id}':
+    get:
+      summary: Get profile
+      tags:
+        - profiles
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/ProfileId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Profile'
+    delete:
+      summary: Delete profile
+      tags:
+        - profiles
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/ProfileId'
+      requestBody:
+        $ref: '#/components/requestBodies/Profile'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/profiles/{profile_id}/identity':
+    put:
+      summary: Update profile identity
+      tags:
+        - profiles
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/ProfileId'
+      requestBody:
+        $ref: '#/components/requestBodies/ProfileIdentity'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+    delete:
+      summary: Delete profile identity
+      tags:
+        - profiles
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/ProfileId'
+      requestBody:
+        $ref: '#/components/requestBodies/ProfileIdentity'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  /v0/queue/emails:
+    post:
+      summary: Create entries in emails queue
+      tags:
+        - emails
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Queue'
+      responses:
+        '201':
+          $ref: '#/components/responses/201_Created'
+    get:
+      summary: Get entries from emails queue
+      tags:
+        - emails
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/FetchSize'
+        - $ref: '#/components/parameters/PageState'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Queue'
+    delete:
+      summary: Delete entries from emails queue
+      tags:
+        - emails
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Queue'
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/queue/emotions:
+    post:
+      summary: Create entries in emotions queue
+      tags:
+        - emotions
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Queue'
+      responses:
+        '201':
+          $ref: '#/components/responses/201_Created'
+    get:
+      summary: Get entries from emotions queue
+      tags:
+        - emotions
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/FetchSize'
+        - $ref: '#/components/parameters/PageState'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Queue'
+    delete:
+      summary: Delete entries from emotions queue
+      tags:
+        - emotions
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Queue'
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  /v0/queue/topics:
+    post:
+      summary: Create entries in topics queue
+      tags:
+        - topics
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Queue'
+      responses:
+        '201':
+          $ref: '#/components/responses/201_Created'
+    get:
+      summary: Get entries from topics queue
+      tags:
+        - topics
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/FetchSize'
+        - $ref: '#/components/parameters/PageState'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Queue'
+    delete:
+      summary: Delete entries from topics queue
+      tags:
+        - topics
+      security:
+        - Basic: []
+      requestBody:
+        $ref: '#/components/requestBodies/Queue'
+      responses:
+        '204':
+          $ref: '#/components/responses/204_No_Content'
+  '/v0/recordings/users/{username}':
+    get:
+      summary: Get all recordings from given speaker
+      tags:
+        - recordings
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+          description: Speaker username
+      responses:
+        '200':
+          description: Success
+  '/v0/recordings/{recording_id}':
+    get:
+      summary: Get recording with given id
+      tags:
+        - recordings
+      parameters:
+        - in: path
+          name: recording_id
+          required: true
+          schema:
+            type: string
+          description: Speaker username
+      responses:
+        '200':
+          description: Success
+    delete:
+      summary: Delete recording with given id
+      tags:
+        - recordings
+      parameters:
+        - in: path
+          name: recording_id
+          required: true
+          schema:
+            type: string
+          description: Speaker username
+      responses:
+        '200':
+          description: Success
+  '/v0/recordings/{recording_id}/stage':
+    get:
+      summary: Get all recordings by stage
+      tags:
+        - recordings
+      parameters:
+        - in: path
+          name: recording_id
+          required: true
+          schema:
+            type: string
+          description: Recording id
+      responses:
+        '200':
+          description: Success
+  '/v0/recordings/{username}/processed':
+    put:
+      summary: Set processed field of recordings by username
+      tags:
+        - recordings
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+          description: Speaker username
+      responses:
+        '200':
+          description: Success
+  '/v0/recordings/recordings/{username}':
+    get:
+      summary: Get all recordings queued for processing by specific user
+      tags:
+        - queue
+      parameters:
+        - in: path
+          name: username
+          required: true
+          schema:
+            type: string
+          description: Speaker username
+      responses:
+        '200':
+          description: Success
+  /v0/slack/channels:
+    get:
+      summary: Get all registred Slack channels
+      tags:
+        - channels
+      responses:
+        '200':
+          description: Success
+    post:
+      summary: Create new Slack channel
+      tags:
+        - channels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                user_id:
+                  type: string
+                created:
+                  type: string
+                creator:
+                  type: string
+                is_channel:
+                  type: boolean
+                is_group:
+                  type: boolean
+                is_im:
+                  type: boolean
+                is_private:
+                  type: boolean
+                name:
+                  type: string
+                previous_names:
+                  type: array
+                  items:
+                    type: string
+                topic:
+                  type: string
+                workspace:
+                  type: string
+              required:
+                - id
+                - user_id
+                - created
+                - is_im
+                - workspace
+      responses:
+        '200':
+          description: Success
+  /v0/slack/channels/subscribed:
+    get:
+      summary: Get all Slack channels which are subscribed to
+      tags:
+        - channels
+      responses:
+        '200':
+          description: Success
+    put:
+      summary: Update channel subscription status
+      tags:
+        - slack/channels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - id
+                - user_id
+      responses:
+        '200':
+          description: Success
+  /v0/slack/messages:
+    post:
+      summary: Create new Slack message
+      tags:
+        - messages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                author:
+                  type: string
+                channel:
+                  type: string
+                created:
+                  type: string
+                is_edited:
+                  type: boolean
+                latest_reply:
+                  type: string
+                reactions:
+                  type: array
+                  items:
+                    type: string
+                reply_count:
+                  type: number
+                reply_users:
+                  type: array
+                  items:
+                    type: string
+                reply_users_count:
+                  type: number
+                speaker_id:
+                  type: string
+                text:
+                  type: string
+                type:
+                  type: string
+                word_count:
+                  type: number
+                workspace:
+                  type: string
+              required:
+                - id
+                - author
+                - channel
+                - created
+                - speaker_id
+                - text
+                - type
+                - word_count
+                - workspace
+      responses:
+        '200':
+          description: Success
+  /v0/slack/queue:
+    post:
+      summary: Enqueue Slack messages for further processing
+      tags:
+        - queue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                text:
+                  type: string
+              required:
+                - id
+                - text
+      responses:
+        '200':
+          description: Success
+    delete:
+      summary: Dequeue processed Slack messages
+      tags:
+        - queue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                required:
+                  - id
+      responses:
+        '200':
+          description: Success
+  /v0/slack/workspaces:
+    get:
+      summary: Get all registred Slack workspaces
+      tags:
+        - workspaces
+      responses:
+        '200':
+          description: Success
+    post:
+      summary: Create new Slack workspace
+      tags:
+        - workspaces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                user_id:
+                  type: string
+                domain:
+                  type: string
+                email_domain:
+                  type: string
+                name:
+                  type: string
+              required:
+                - id
+                - user_id
+                - domain
+                - email_domain
+                - name
+      responses:
+        '200':
+          description: Success
+  /v0/slack/workspaces/subscribed:
+    get:
+      summary: Get all Slack workspaces which are subscribed to
+      tags:
+        - workspaces
+      responses:
+        '200':
+          description: Success
+    put:
+      summary: Update workspace subscription status
+      tags:
+        - workspaces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                is_subscribed:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - id
+                - is_subscribed
+                - user_id
+      responses:
+        '200':
+          description: Success
+  /v0/spec:
+    get:
+      summary: OpenApi specification
+      tags:
+        - spec
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Static'
+  '/v0/stripe/{user_id}/customer':
+    post:
+      summary: Create Stripe Customer
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/Customer'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Customer'
+    get:
+      summary: Get User Customer Info
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Customer'
+  '/v0/stripe/{user_id}/customer/all':
+    get:
+      summary: Get All Registered Stripe Customers
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Stripe_Customers'
+  '/v0/stripe/{user_id}/customer/{customer_id}':
+    delete:
+      summary: Delete Stripe Customer
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/StripeCustomerId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Delete_Stripe_Object'
+  '/v0/stripe/{user_id}/product':
+    post:
+      summary: Create Stripe Product
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Product'
+    get:
+      summary: Get All Registered Stripe Products
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Stripe_Products'
+  '/v0/stripe/{user_id}/product/{product_id}':
+    delete:
+      summary: Delete Stripe Product
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/StripeProductId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Delete_Stripe_Object'
+  '/v0/stripe/{user_id}/price':
+    post:
+      summary: Create Stripe Price
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/Price'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Price'
+    get:
+      summary: Get All Registered Stripe Prices
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Stripe_Prices'
+  '/v0/stripe/{user_id}/price/{price_id}':
+    put:
+      summary: Update Stripe Price
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/StripePriceId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Price'
+  '/v0/stripe/{user_id}/card':
+    post:
+      summary: Add Payment Method
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/Card'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Card'
+    get:
+      summary: Get All Registered Customer's Stripe Cards
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_Stripe_Cards'
+  '/v0/stripe/{user_id}/card/{card_id}':
+    delete:
+      summary: Delete Stripe Card
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/StripeCardId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Delete_Stripe_Object'
+    put:
+      summary: Set Default Payment Method
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+        - $ref: '#/components/parameters/StripeCardId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Card'
+  '/v0/stripe/{user_id}/subscribe':
+    post:
+      summary: Subscribe To Plan
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/Subscribe'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Subscribe'
+    put:
+      summary: Upgrade/Downgrade Plan
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/Subscribe'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Subscribe'
+    get:
+      summary: Get User's Subscription
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/202_OK_Subscribe'
+    delete:
+      summary: Cancel Subscription
+      tags:
+        - stripe
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_OK_Subscribe'
+  '/v0/sync/{provider}':
+    get:
+      summary: Get all accounts for given *provider*
+      tags:
+        - accounts
+      parameters:
+        - in: path
+          name: provider
+          required: true
+          schema:
+            type: string
+            enum:
+              - gmail
+              - googlecalendar
+              - instagram
+              - linkedin
+              - microsoftcalendar
+              - outlook
+              - slack
+              - twitter
+              - zoom
+          description: |
+            Provider of data where speaker was identified
+            by kpr.ai
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accounts'
+  /v0/sync/social/active:
+    put:
+      summary: Set is_active status of social account
+      tags:
+        - social
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account:
+                  type: object
+                status:
+                  type: boolean
+              required:
+                - account
+                - status
+      responses:
+        '200':
+          description: Success
+  /v0/sync/social/remove:
+    post:
+      summary: Remove social account
+      tags:
+        - social
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account:
+                  type: object
+              required:
+                - account
+      responses:
+        '200':
+          description: Success
+  /v0/sync/social/synced:
+    put:
+      summary: Update timestamp of last sync for Social account
+      tags:
+        - social
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                userId:
+                  type: string
+                lastSync:
+                  type: string
+                provider:
+                  type: string
+              required:
+                - id
+                - userId
+                - lastSync
+                - provider
+      responses:
+        '200':
+          description: Success
+  '/v0/sync/{provider}/{user_id}':
+    get:
+      summary: Get all *provider* accounts associated with user *user_id*
+      tags:
+        - accounts
+      parameters:
+        - in: path
+          name: provider
+          required: true
+          schema:
+            type: string
+            enum:
+              - gmail
+              - googlecalendar
+              - instagram
+              - linkedin
+              - microsoftcalendar
+              - outlook
+              - slack
+              - twitter
+              - zoom
+          description: Data provider
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+          description: kpr.ai user id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+    put:
+      summary: Update user account
+      tags:
+        - accounts
+      parameters:
+        - in: path
+          name: provider
+          required: true
+          schema:
+            type: string
+            enum:
+              - gmail
+              - googlecalendar
+              - instagram
+              - linkedin
+              - microsoftcalendar
+              - outlook
+              - slack
+              - twitter
+              - zoom
+          description: Account provider
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: kpr.ai user id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/Account'
+              required:
+                - data
+      responses:
+        '200':
+          description: Success
+  /v0/topics:
+    post:
+      summary: Create topic
+      tags:
+        - topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    user_id:
+                      type: string
+                    provider:
+                      type: string
+                      enum:
+                        - gmail
+                        - googlecalendar
+                        - instagram
+                        - linkedin
+                        - microsoftcalendar
+                        - outlook
+                        - twitter
+                        - zoom
+                    id:
+                      type: string
+                    account_id:
+                      type: string
+                    created:
+                      type: string
+                    end_time:
+                      type: string
+                    kind:
+                      type: string
+                    speaker_id:
+                      type: string
+                    start_time:
+                      type: string
+                    topic:
+                      type: string
+                    type:
+                      type: string
+                    weight:
+                      type: number
+                  required:
+                    - user_id
+                    - provider
+                    - id
+                    - account_id
+                    - kind
+                    - speaker_id
+                    - topic
+                    - type
+                    - weight
+              required:
+                - data
+      responses:
+        '201':
+          description: Topic created
+  '/v0/topics/{user_id}':
+    get:
+      summary: Get topics by user_id
+      tags:
+        - topics
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+          description: User id
+      responses:
+        '200':
+          description: Success
+  '/v0/twitter/sync/friend/{user_id}/{user_account_id}':
+    get:
+      summary: Get Twitter Friend Sync Info
+      tags:
+        - twitter
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+          description: |
+            user id by kpr.ai
+        - in: path
+          name: user_account_id
+          required: true
+          schema:
+            type: string
+          description: kpr.ai user account id
+      responses:
+        '200':
+          description: Success
+  /v0/twitter/sync/friend:
+    post:
+      summary: Insert/Update twitter sync friend
+      tags:
+        - twitter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                last_sync_friend_id:
+                  type: string
+                user_account_id:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - user_account_id
+                - user_id
+      responses:
+        '200':
+          description: Success
+  '/v0/twitter/sync/follower/{user_id}/{user_account_id}':
+    get:
+      summary: Get Twitter Follower Sync Info
+      tags:
+        - twitter
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+          description: |
+            user id by kpr.ai
+        - in: path
+          name: user_account_id
+          required: true
+          schema:
+            type: string
+          description: kpr.ai user account id
+      responses:
+        '200':
+          description: Success
+  /v0/twitter/sync/follower:
+    post:
+      summary: Insert/Update twitter sync follower
+      tags:
+        - twitter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                last_sync_follower_id:
+                  type: string
+                user_account_id:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - user_account_id
+                - user_id
+      responses:
+        '200':
+          description: Success
+  /v0/twitter/friend:
+    post:
+      summary: Insert twitter friend
+      tags:
+        - twitter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                twitter_id:
+                  type: string
+                twitter_name:
+                  type: string
+                user_account_id:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - twitter_id
+                - twitter_name
+                - user_account_id
+                - user_id
+      responses:
+        '200':
+          description: Success
+  /v0/twitter/follower:
+    post:
+      summary: Insert twitter follower
+      tags:
+        - twitter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                twitter_id:
+                  type: string
+                twitter_name:
+                  type: string
+                user_account_id:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - twitter_id
+                - twitter_name
+                - user_account_id
+                - user_id
+      responses:
+        '200':
+          description: Success
+  '/v0/twitter/sync/direct_message/{user_id}/{user_account_id}':
+    get:
+      summary: Get Twitter Direct Message Sync Info
+      tags:
+        - twitter
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+          description: |
+            user id by kpr.ai
+        - in: path
+          name: user_account_id
+          required: true
+          schema:
+            type: string
+          description: kpr.ai user account id
+      responses:
+        '200':
+          description: Success
+  /v0/twitter/sync/direct_message:
+    post:
+      summary: Insert/Update twitter sync direct message
+      tags:
+        - twitter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                last_sync_direct_message_id:
+                  type: string
+                user_account_id:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - user_account_id
+                - user_id
+      responses:
+        '200':
+          description: Success
+  /v0/twitter/direct_message:
+    post:
+      summary: Insert twitter direct message
+      tags:
+        - twitter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                created_timestamp:
+                  type: string
+                message:
+                  type: string
+                message_id:
+                  type: string
+                recipient_id:
+                  type: string
+                sender_id:
+                  type: string
+                type:
+                  type: string
+                user_account_id:
+                  type: string
+                user_id:
+                  type: string
+              required:
+                - user_account_id
+                - user_id
+      responses:
+        '200':
+          description: Success
+  /v0/users:
+    get:
+      summary: Get all users
+      tags:
+        - users
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/FetchSize'
+        - $ref: '#/components/parameters/PageState'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_User'
+  '/v0/users/{user_id}':
+    get:
+      summary: Get user by user_id
+      tags:
+        - users
+      security:
+        - Basic: []
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          $ref: '#/components/responses/200_OK_User'
+    put:
+      summary: Update user
+      tags:
+        - users
+      security:
+        - Basic: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/users/{user_id}/account':
+    delete:
+      summary: Delete account
+      tags:
+        - users
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserAccount'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/users/{user_id}/autojoin':
+    put:
+      summary: Update account autojoin
+      tags:
+        - users
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserAutojoin'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/users/{user_id}/device':
+    put:
+      summary: Add device
+      tags:
+        - users
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserDevice'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+    delete:
+      summary: Delete device
+      tags:
+        - users
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserDevice'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/users/{user_id}/password':
+    put:
+      summary: Update password
+      tags:
+        - users
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserPassword'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/users/{user_id}/profile':
+    delete:
+      summary: Delete profile
+      tags:
+        - users
+      security:
+        - Bearer: []
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+  '/v0/users/{user_id}/username':
+    put:
+      summary: Update username
+      tags:
+        - users
+      security:
+        - Bearer: []
+      requestBody:
+        $ref: '#/components/requestBodies/UserUsername'
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '202':
+          $ref: '#/components/responses/202_Accepted'
+components:
+  headers:
+    XAuthToken:
+      required: false
+      schema:
+        $ref: '#/components/schemas/JWTAuthTokenType'
+    UserId:
+      schema:
+        type: string
+        minLength: 128
+        maxLength: 1024
+    UserIdSig:
+      schema:
+        type: string
+        minLength: 64
+        maxLength: 128
+  parameters:
+    Account:
+      in: path
+      name: account
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: OAuth2 account
+    Code:
+      in: query
+      name: code
+      required: true
+      schema:
+        type: string
+        minLength: 32
+        maxLength: 4096
+        example: 4/6AGn8L5tSw0J5jQEJyNT6CWiIu1dq6VEADOgevh0MD7jHtnxI
+      allowReserved: true
+      description: OAuth2 code
+    HD:
+      in: query
+      name: hd
+      required: false
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+        example: josu.ai
+      description: Parameter specific to Gsuite-connected business domains
+    Platform:
+      in: path
+      name: platform
+      required: true
+      schema:
+        type: string
+        enum:
+          - mobile
+          - web
+      description: User platform
+    Prompt:
+      in: query
+      name: prompt
+      required: false
+      schema:
+        type: string
+        enum:
+          - consent
+          - none
+          - select_account
+      description: OAuth2 login type
+    RedirectURI:
+      in: query
+      name: redirect_uri
+      required: false
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 96
+        example: https%3A%2F%2Fapi.josu.ai%2Fv0%2Fauth%2Flogin%2Fgoogle
+      description: OAuth2 redirect_uri
+    ResetToken:
+      in: path
+      name: reset_token
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUIDType'
+      description: Id for resetting password
+    Scope:
+      in: query
+      name: scope
+      required: false
+      schema:
+        type: string
+        minLength: 4
+        maxLength: 512
+        example: email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth
+      allowReserved: true
+      description: OAuth2 grant scope
+    SessionState:
+      in: query
+      name: session_state
+      required: false
+      schema:
+        type: string
+      allowReserved: true
+      description: Azure-specific parameter
+    State:
+      in: query
+      name: state
+      required: false
+      schema:
+        $ref: '#/components/schemas/JWTAuthTokenType'
+      description: Josu JWT token
+    User:
+      in: query
+      name: authuser
+      required: false
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 2
+        example: '0'
+      description: >-
+        Google-specific parameter similar to &prompt=. See
+        https://stackoverflow.com/a/13379472
+    Username:
+      name: username
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UsernameType'
+      description: Josu username
+    After:
+      name: after
+      in: query
+      schema:
+        $ref: '#/components/schemas/DateTimeType'
+      allowReserved: true
+      description: Lower bound of start time
+    Before:
+      name: before
+      in: query
+      schema:
+        $ref: '#/components/schemas/DateTimeType'
+      allowReserved: true
+      description: Upper bound of start time
+    MeetingId:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Google or Microsoft meeting id
+    Start:
+      name: start
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/DateTimeType'
+      description: Start time of the meeting
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUIDType'
+      description: Josu user_id
+    Email:
+      name: email
+      in: query
+      required: true
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/EmailType'
+      description: Email
+    Name:
+      name: name
+      in: query
+      required: true
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/NameType'
+      description: Name
+    ProfileId:
+      name: profile_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUIDType'
+      description: Profile id
+    StripeCustomerId:
+      name: customer_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Customer Id
+    StripeProductId:
+      name: product_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Product Id
+    StripePriceId:
+      name: price_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Price Id
+    StripeCardId:
+      name: card_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Card Id
+    FetchSize:
+      name: fetchSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 256
+        default: 16
+      description: Pagination size
+    PageState:
+      name: pageState
+      in: query
+      required: false
+      schema:
+        type: string
+        minLength: 64
+        maxLength: 512
+        example: 1031373338646262653964633432396431180010f86bc02kldsjh9382
+      description: Cassandra nextPage token
+  requestBodies:
+    PasswordLogin:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  user_id:
+                    $ref: '#/components/schemas/UUIDType'
+                  username:
+                    $ref: '#/components/schemas/UsernameType'
+                  password:
+                    $ref: '#/components/schemas/PasswordType'
+                required:
+                  - user_id
+                  - username
+                  - password
+            required:
+              - data
+    PasswordReset:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  base_uri:
+                    $ref: '#/components/schemas/URLType'
+                  user_id:
+                    $ref: '#/components/schemas/UUIDType'
+                required:
+                  - base_uri
+                  - user_id
+            required:
+              - data
+    Meeting:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/MeetingItem'
+            required:
+              - data
+    Profile:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/ProfileItem'
+            required:
+              - data
+    ProfileIdentity:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  identity:
+                    $ref: '#/components/schemas/ProfileIdentityItem'
+                  profile:
+                    $ref: '#/components/schemas/ProfileItem'
+                required:
+                  - identity
+                  - profile
+            required:
+              - data
+    Queue:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Queue'
+    Customer:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: '#/components/schemas/StringIdType'
+              email:
+                $ref: '#/components/schemas/StringIdType'
+            required:
+              - data
+    Product:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: '#/components/schemas/StringIdType'
+            required:
+              - data
+    Price:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: '#/components/schemas/StringIdType'
+              unit_amount:
+                $ref: '#/components/schemas/StringIdType'
+              product_id:
+                $ref: '#/components/schemas/StringIdType'
+            required:
+              - data
+    Card:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              customer_id:
+                $ref: '#/components/schemas/StringIdType'
+              stripe_token:
+                $ref: '#/components/schemas/StringIdType'
+            required:
+              - data
+    Subscribe:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              price_id:
+                $ref: '#/components/schemas/StringIdType'
+            required:
+              - data
+    UserAccount:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  account:
+                    $ref: '#/components/schemas/AccountItem'
+                  user:
+                    $ref: '#/components/schemas/UserItem'
+                required:
+                  - account
+                  - user
+            required:
+              - data
+    UserAutojoin:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  account_zoom:
+                    type: boolean
+                  user:
+                    $ref: '#/components/schemas/UserItem'
+                required:
+                  - autojoin_zoom
+                  - user
+            required:
+              - data
+    UserDevice:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  device:
+                    $ref: '#/components/schemas/UUIDType'
+                  user:
+                    $ref: '#/components/schemas/UserItem'
+                required:
+                  - device
+                  - user
+            required:
+              - data
+    UserPassword:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  password:
+                    type: object
+                    properties:
+                      new_password:
+                        $ref: '#/components/schemas/PasswordType'
+                      new_password_confirm:
+                        $ref: '#/components/schemas/PasswordType'
+                      old_password:
+                        $ref: '#/components/schemas/NullablePasswordType'
+                    required:
+                      - new_password
+                      - new_password_confirm
+                      - old_password
+                  user:
+                    $ref: '#/components/schemas/UserItem'
+                required:
+                  - password
+                  - user
+            required:
+              - data
+    UserUsername:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  new_username:
+                    $ref: '#/components/schemas/UsernameType'
+                  user:
+                    $ref: '#/components/schemas/UserItem'
+                required:
+                  - new_username
+                  - user
+            required:
+              - data
+    User:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/UserItem'
+            required:
+              - data
+  responses:
+    200_OK_Auth:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/AccountIdItem'
+                  - $ref: '#/components/schemas/UsernameItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    202_Accepted_Auth:
+      description: Command successful
+      headers:
+        X-Auth-Token:
+          $ref: '#/components/headers/XAuthToken'
+      content:
+        text/html:
+          schema:
+            type: string
+            format: binary
+        application/json:
+          schema:
+            $ref: '#/components/responses/202_Accepted'
+    302_Found_Auth:
+      description: Command successful
+      headers:
+        X-Auth-Token:
+          $ref: '#/components/headers/XAuthToken'
+    200_OK_Meeting:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/MeetingItem'
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: '#/components/schemas/MeetingItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Profile:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/ProfileItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Queue:
+      description: Read successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Queue'
+    202_OK_Customer:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/Customer'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Customer:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripeCustomer'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    202_OK_Product:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripeProductItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    202_OK_Price:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripePriceItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    202_OK_Card:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripeCardItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    202_OK_Delete_Stripe_Object:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/DeleteStripeCustomer'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Stripe_Customers:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripeCustomerItem'
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: '#/components/schemas/StripeCustomerItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Stripe_Products:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripeProductItem'
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: '#/components/schemas/StripeProductItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Stripe_Prices:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripePriceItem'
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: '#/components/schemas/StripePriceItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Stripe_Cards:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/StripeCardItem'
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: '#/components/schemas/StripeCardItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    202_OK_Subscribe:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/Subscription'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Subscriptions:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/Subscription'
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: '#/components/schemas/Subscription'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_User:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: '#/components/schemas/NullType'
+                  - $ref: '#/components/schemas/UserItem'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    200_OK_Static:
+      description: Static file retrieved
+      content:
+        text/yaml:
+          schema:
+            type: object
+            format: byte
+        text/html:
+          schema:
+            type: object
+            format: byte
+    202_Accepted:
+      description: Command successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/NullType'
+              links:
+                $ref: '#/components/schemas/Links'
+            required:
+              - data
+              - links
+    201_Created:
+      description: Created or updated successfully
+    204_No_Content:
+      description: Deleted successfully
+    400_Bad_Request:
+      description: Validation failed
+    501_Not_Implemented:
+      description: Placeholder
+  schemas:
+    AccountIdItem:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/StringIdType'
+        user_id:
+          $ref: '#/components/schemas/UUIDType'
+      required:
+        - account
+        - user_id
+    UsernameItem:
+      type: object
+      properties:
+        username:
+          $ref: '#/components/schemas/UsernameType'
+        user_id:
+          $ref: '#/components/schemas/UUIDType'
+      required:
+        - username
+        - user_id
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        category:
+          type: array
+          nullable: true
+          items:
+            type: string
+        confidence_category:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - category
+        - confidence_category
+    Emotion:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        emotions:
+          type: array
+          nullable: true
+          items:
+            type: string
+        emotions_endpos:
+          type: array
+          nullable: true
+          items:
+            type: number
+        emotions_mean:
+          type: array
+          nullable: true
+          items:
+            type: string
+        emotions_mean_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+        emotions_startpos:
+          type: array
+          nullable: true
+          items:
+            type: number
+        emotions_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - emotions
+        - emotions_endpos
+        - emotions_mean
+        - emotions_mean_weight
+        - emotions_startpos
+        - emotions_weight
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        named_entities:
+          type: array
+          nullable: true
+          items:
+            type: string
+        named_entities_endpos:
+          type: array
+          items:
+            type: string
+        named_entities_startpos:
+          type: array
+          nullable: true
+          items:
+            type: string
+        named_entities_type:
+          type: array
+          nullable: true
+          items:
+            type: string
+        named_entities_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - named_entities
+        - named_entities_endpos
+        - named_entities_startpos
+        - named_entities_type
+        - named_entities_weight
+    GmailEmail:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 16
+          maxLength: 16
+        user_id:
+          type: string
+          format: uuid
+        account_id:
+          type: string
+          format: uuid
+        category:
+          type: array
+          nullable: true
+          maxItems: 5
+          items:
+            $ref: '#/components/schemas/CategoryType'
+          uniqueItems: true
+        category_ground_truth:
+          $ref: '#/components/schemas/CategoryType'
+        confidence_category:
+          type: array
+          nullable: true
+          maxItems: 5
+          items:
+            type: number
+            minimum: 0
+            maximum: 1
+        confidence_is_person:
+          type: number
+          minimum: 0
+          maximum: 1
+        date_received:
+          type: string
+          format: date-time
+        email_attachment_names:
+          type: array
+          nullable: true
+          items:
+            type: string
+            minLength: 32
+        email_content:
+          type: string
+        email_from:
+          type: string
+          format: email
+        email_subject:
+          type: string
+        email_to:
+          type: array
+          items:
+            type: string
+            format: email
+        emotions:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/EmotionType'
+        emotions_endpos:
+          type: array
+          nullable: true
+          items:
+            type: integer
+        emotions_mean:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/EmotionType'
+        emotions_mean_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+            minimum: 0
+            maximum: 1
+        emotions_startpos:
+          type: array
+          nullable: true
+          items:
+            type: integer
+        emotions_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+            minimum: 0
+            maximum: 1
+        is_person:
+          type: boolean
+        keywords:
+          type: array
+          items:
+            type: string
+        keywords_endpos:
+          type: array
+          items:
+            type: string
+        keywords_startpos:
+          type: array
+          items:
+            type: string
+        keywords_weight:
+          type: array
+          items:
+            type: number
+            minimum: 0
+        labels:
+          type: array
+          items:
+            type: string
+        named_entities:
+          type: array
+          items:
+            type: string
+        named_entities_endpos:
+          type: array
+          items:
+            type: string
+        named_entities_startpos:
+          type: array
+          items:
+            type: string
+        named_entities_type:
+          type: array
+          items:
+            type: string
+        named_entities_weight:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+        speaker_id:
+          type: string
+          format: uuid
+        thread_id:
+          type: string
+          minLength: 16
+          maxLength: 16
+        word_count:
+          type: integer
+          minimum: 5
+      required:
+        - id
+        - user_id
+        - account_id
+        - date_received
+        - email_attachment_names
+        - email_content
+        - email_from
+        - email_subject
+        - email_to
+        - is_solitary_recipient
+        - labels
+        - speaker_id
+        - thread_id
+    GroundTruth:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        category_ground_truth:
+          type: string
+          nullable: true
+      required:
+        - id
+        - user_id
+        - account_id
+        - category_ground_truth
+    Keyword:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        keywords:
+          type: array
+          nullable: true
+          items:
+            type: string
+        keywords_endpos:
+          type: array
+          items:
+            type: string
+        keywords_startpos:
+          type: array
+          nullable: true
+          items:
+            type: string
+        keywords_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - keywords
+        - keywords_endpos
+        - keywords_startpos
+        - keywords_weight
+    Links:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/URLType'
+        next:
+          $ref: '#/components/schemas/URLType'
+        resource:
+          $ref: '#/components/schemas/URLType'
+      required:
+        - self
+    MeetingItem:
+      type: object
+      properties:
+        user_id:
+          $ref: '#/components/schemas/UUIDType'
+        start:
+          $ref: '#/components/schemas/DateTimeType'
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        __account:
+          $ref: '#/components/schemas/StringIdType'
+        __attendees_profiles:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/UUIDType'
+        __calendar:
+          $ref: '#/components/schemas/StringIdType'
+        __invitee_email:
+          $ref: '#/components/schemas/EmailType'
+        __invitee_name:
+          $ref: '#/components/schemas/NullableNameType'
+        __invitee_profile:
+          $ref: '#/components/schemas/UUIDType'
+        __is_cancelled:
+          $ref: '#/components/schemas/NullableBooleanType'
+        __is_generic:
+          $ref: '#/components/schemas/NullableBooleanType'
+        __is_important:
+          $ref: '#/components/schemas/NullableBooleanType'
+        __is_invited:
+          $ref: '#/components/schemas/NullableBooleanType'
+        __is_rescheduled:
+          $ref: '#/components/schemas/NullableBooleanType'
+        __organizer_profile:
+          $ref: '#/components/schemas/UUIDType'
+        __provider:
+          $ref: '#/components/schemas/CalendarProviderType'
+        __zoom_end:
+          $ref: '#/components/schemas/NullableDateTimeType'
+        __zoom_is_invited:
+          $ref: '#/components/schemas/NullableBooleanType'
+        __zoom_meeting:
+          type: string
+          nullable: true
+          pattern: '^\d{8,12}$'
+        __zoom_password:
+          $ref: '#/components/schemas/NullableStringIdType'
+        __zoom_start:
+          $ref: '#/components/schemas/NullableDateTimeType'
+        __zoom_summary:
+          $ref: '#/components/schemas/NullableShortTextType'
+        __zoom_transcript:
+          $ref: '#/components/schemas/NullableShortTextType'
+        __zoom_url:
+          $ref: '#/components/schemas/NullableURLType'
+        attachments:
+          type: array
+          nullable: true
+          items:
+            type: string
+        attendees_emails:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/EmailType'
+        attendees_names:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/NullableNameType'
+        created:
+          $ref: '#/components/schemas/DateTimeType'
+        end:
+          $ref: '#/components/schemas/DateTimeType'
+        is_organizer:
+          type: boolean
+        labels:
+          type: array
+          nullable: true
+          items:
+            type: string
+        link:
+          $ref: '#/components/schemas/URLType'
+        location:
+          $ref: '#/components/schemas/NullableShortTextType'
+        organizer_email:
+          $ref: '#/components/schemas/EmailType'
+        organizer_name:
+          $ref: '#/components/schemas/NullableNameType'
+        status:
+          $ref: '#/components/schemas/MeetingStatusType'
+        subject:
+          $ref: '#/components/schemas/NullableShortTextType'
+        text_content:
+          $ref: '#/components/schemas/NullableShortTextType'
+        updated:
+          $ref: '#/components/schemas/DateTimeType'
+      required:
+        - user_id
+        - start
+        - id
+        - __account
+        - __calendar
+        - __invitee_email
+        - __invitee_name
+        - __is_cancelled
+        - __is_generic
+        - __is_important
+        - __is_invited
+        - __is_rescheduled
+        - __provider
+        - __zoom_end
+        - __zoom_is_invited
+        - __zoom_meeting
+        - __zoom_password
+        - __zoom_start
+        - __zoom_summary
+        - __zoom_transcript
+        - __zoom_url
+        - attachments
+        - attendees_emails
+        - attendees_names
+        - created
+        - end
+        - is_organizer
+        - labels
+        - link
+        - location
+        - organizer_email
+        - organizer_name
+        - status
+        - subject
+        - text_content
+        - updated
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        confidence_is_person:
+          type: number
+          nullable: true
+        is_person:
+          type: boolean
+          nullable: true
+      required:
+        - id
+        - user_id
+        - account_id
+        - confidence_is_person
+        - is_person
+    ProfileIdentityItem:
+      type: object
+      properties:
+        profile_id:
+          $ref: '#/components/schemas/UUIDType'
+        email:
+          $ref: '#/components/schemas/EmailType'
+        name:
+          $ref: '#/components/schemas/NameType'
+      required:
+        - profile_id
+        - email
+        - name
+    ProfileItem:
+      type: object
+      properties:
+        profile_id:
+          $ref: '#/components/schemas/UUIDType'
+        email:
+          $ref: '#/components/schemas/EmailType'
+        emails:
+          type: array
+          minItems: 0
+          maxItems: 16
+          items:
+            $ref: '#/components/schemas/EmailType'
+        name:
+          $ref: '#/components/schemas/NullableNameType'
+        names:
+          type: array
+          minItems: 0
+          maxItems: 16
+          items:
+            $ref: '#/components/schemas/NullableNameType'
+      required:
+        - profile_id
+        - email
+        - emails
+        - name
+        - names
+    Queue:
+      type: object
+      properties:
+        data:
+          type: array
+          nullable: true
+          maxItems: 256
+          items:
+            $ref: '#/components/schemas/QueueItem'
+      required:
+        - data
+    QueueItem:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        user_id:
+          $ref: '#/components/schemas/UUIDType'
+        account_id:
+          $ref: '#/components/schemas/UUIDType'
+        provider:
+          $ref: '#/components/schemas/ProviderType'
+        speaker_id:
+          $ref: '#/components/schemas/UUIDType'
+        text:
+          $ref: '#/components/schemas/NullableShortTextType'
+      required:
+        - id
+        - user_id
+        - account_id
+        - provider
+        - speaker_id
+    Customer:
+      type: object
+      properties:
+        user_id:
+          $ref: '#/components/schemas/UUIDType'
+        id:
+          $ref: '#/components/schemas/UUIDType'
+        customer_id:
+          $ref: '#/components/schemas/StringIdType'
+        customer_name:
+          $ref: '#/components/schemas/StringIdType'
+        card_brand:
+          $ref: '#/components/schemas/NullableStringIdType'
+        card_last4:
+          $ref: '#/components/schemas/NullableStringIdType'
+      required:
+        - user_id
+        - id
+        - customer_name
+    StripeCustomer:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        name:
+          $ref: '#/components/schemas/StringIdType'
+        email:
+          $ref: '#/components/schemas/StringIdType'
+      required:
+        - id
+    DeleteStripeCustomer:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        object:
+          $ref: '#/components/schemas/StringIdType'
+        deleted:
+          $ref: '#/components/schemas/NullableBooleanType'
+      required:
+        - id
+        - object
+        - deleted
+    StripeCustomerItem:
+      type: object
+      properties:
+        customer_id:
+          $ref: '#/components/schemas/StringIdType'
+        name:
+          $ref: '#/components/schemas/NullableStringIdType'
+        email:
+          $ref: '#/components/schemas/NullableStringIdType'
+    StripeProductItem:
+      type: object
+      properties:
+        product_id:
+          $ref: '#/components/schemas/StringIdType'
+        name:
+          $ref: '#/components/schemas/NullableStringIdType'
+        unit_amount:
+          type: integer
+    StripePriceItem:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        nickname:
+          $ref: '#/components/schemas/NullableStringIdType'
+        unit_amount:
+          type: integer
+    StripeCardItem:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        brand:
+          $ref: '#/components/schemas/StringIdType'
+        customer:
+          $ref: '#/components/schemas/StringIdType'
+    Subscription:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+    Account:
+      type: object
+      properties:
+        provider:
+          type: string
+          enum:
+            - gmail
+            - googlecalendar
+            - instagram
+            - linkedin
+            - microsoftcalendar
+            - outlook
+            - slack
+            - twitter
+            - zoom
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        account_nickname:
+          type: string
+          minLength: 1
+        created:
+          type: string
+          format: date-time
+        is_active:
+          type: boolean
+        last_sync:
+          type: string
+          format: date-time
+        refresh_token:
+          type: string
+          minLength: 32
+      required:
+        - provider
+        - id
+        - user_id
+        - account_nickname
+        - created
+        - is_active
+        - last_sync
+    Accounts:
+      type: object
+      properties:
+        data:
+          type: array
+          nullable: true
+          maxItems: 256
+          items:
+            $ref: '#/components/schemas/Account'
+      required:
+        - data
+    Topic:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        topics:
+          type: array
+          nullable: true
+          items:
+            type: string
+        topics_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - topics
+        - topics_weight
+    AccountItem:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        autojoin_zoom:
+          type: boolean
+        email:
+          $ref: '#/components/schemas/EmailType'
+        first_name:
+          $ref: '#/components/schemas/FirstNameType'
+        last_name:
+          $ref: '#/components/schemas/LastNameType'
+        name:
+          $ref: '#/components/schemas/NameType'
+        provider:
+          $ref: '#/components/schemas/CalendarProviderType'
+        refresh_token:
+          $ref: '#/components/schemas/RefreshTokenType'
+      required:
+        - id
+        - autojoin_zoom
+        - email
+        - first_name
+        - last_name
+        - name
+        - provider
+        - refresh_token
+    CalendarItem:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/StringIdType'
+        account:
+          $ref: '#/components/schemas/StringIdType'
+        channel:
+          $ref: '#/components/schemas/NullableStringIdType'
+        expires:
+          $ref: '#/components/schemas/NullableDateTimeType'
+        provider:
+          $ref: '#/components/schemas/CalendarProviderType'
+        refresh_token:
+          $ref: '#/components/schemas/RefreshTokenType'
+      required:
+        - id
+        - account
+        - channel
+        - expires
+        - provider
+        - refresh_token
+    UserItem:
+      type: object
+      properties:
+        user_id:
+          $ref: '#/components/schemas/UUIDType'
+        __accounts_google:
+          $ref: '#/components/schemas/UserAccountsItem'
+        __accounts_microsoft:
+          $ref: '#/components/schemas/UserAccountsItem'
+        __calendars_google:
+          $ref: '#/components/schemas/UserCalendarsItem'
+        __calendars_microsoft:
+          $ref: '#/components/schemas/UserCalendarsItem'
+        autojoin_zoom:
+          type: boolean
+        devices:
+          type: array
+          minItems: 0
+          maxItems: 16
+          nullable: true
+          items:
+            $ref: '#/components/schemas/UUIDType'
+        email:
+          $ref: '#/components/schemas/EmailType'
+        first_name:
+          $ref: '#/components/schemas/FirstNameType'
+        last_name:
+          $ref: '#/components/schemas/LastNameType'
+        password:
+          $ref: '#/components/schemas/NullablePasswordHashType'
+        profile_id:
+          $ref: '#/components/schemas/UUIDType'
+        username:
+          $ref: '#/components/schemas/NullableUsernameType'
+        userpic_url:
+          $ref: '#/components/schemas/NullableURLType'
+      required:
+        - user_id
+        - __accounts_google
+        - __accounts_microsoft
+        - __calendars_google
+        - __calendars_microsoft
+        - autojoin_zoom
+        - devices
+        - email
+        - first_name
+        - last_name
+        - password
+        - profile_id
+        - username
+        - userpic_url
+    UserAccountsItem:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AccountItem'
+      example:
+        '115244245744751925401':
+          autojoin_zoom: false
+          email: vf.velt@gmail.com
+          first_name: Oleksii
+          last_name: Dorozhkin
+          name: Oleksii Dorozhkin
+          provider: google
+          refresh_token: 1//0f3_7fcGe6aD0CgYIARAAGA8SNwF
+    UserCalendarsItem:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/CalendarItem'
+      example:
+        vf.velt@gmail.com:
+          account: '115244245744751925401'
+          channel: f86bc02d-051f-4efa-a372-80dc0b6d4235
+          expires: '2020-08-09T21:00:00.000Z'
+          provider: google
+          refresh_token: 1//0f3_7fcGe6aD0CgYIARAAGA8SNwF
+    Wordcount:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        word_count:
+          type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - word_count
+    CalendarProviderType:
+      type: string
+      enum:
+        - google
+        - microsoft
+        - zoom
+      example: google
+    CategoryType:
+      type: string
+      enum:
+        - Event Invite
+        - Newsletter
+        - Personal
+        - Transactional
+        - Spam
+      example: Newsletter
+    DateTimeType:
+      type: string
+      format: date-time
+      example: '2020-08-09T21:00:00.000Z'
+    EmailType:
+      type: string
+      format: email
+      example: vf.velt@gmail.com
+    EmotionType:
+      type: string
+      enum:
+        - admiration
+        - amusement
+        - anger
+        - annoyance
+        - approval
+        - caring
+        - confusion
+        - curiosity
+        - desire
+        - disappointment
+        - disapproval
+        - disgust
+        - embarrassment
+        - excitement
+        - fear
+        - gratitude
+        - grief
+        - joy
+        - love
+        - nervousness
+        - neutral
+        - optimism
+        - pride
+        - realization
+        - relief
+        - remorse
+        - sadness
+        - surprise
+      example: neutral
+    JWTAuthTokenType:
+      type: string
+      minLength: 64
+      maxLength: 1024
+      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTE1MjQ0
+    FirstNameType:
+      type: string
+      minLength: 1
+      maxLength: 32
+      example: Oleksii
+    LastNameType:
+      type: string
+      minLength: 1
+      maxLength: 32
+      example: Dorozhkin
+    MeetingStatusType:
+      type: string
+      nullable: true
+      enum:
+        - 'yes'
+        - maybe
+        - 'no'
+        - unknown
+        - deleted
+    NameType:
+      type: string
+      minLength: 0
+      maxLength: 128
+      example: Oleksii Dorozhkin
+    NullableBooleanType:
+      type: boolean
+      nullable: true
+    NullableDateTimeType:
+      type: string
+      format: date-time
+      nullable: true
+      example: '2020-08-09T21:00:00.000Z'
+    NullableNameType:
+      type: string
+      minLength: 0
+      maxLength: 256
+      nullable: true
+      example: Oleksii Dorozhkin
+    NullablePasswordHashType:
+      type: string
+      minLength: 48
+      maxLength: 64
+      nullable: true
+      example: $2b$12$1TXi0Ro6wdmvIvtvd4g3o.MKj2SdikTBiiRaadTA9zoU0h5h5wBhm
+    NullablePasswordType:
+      type: string
+      minLength: 8
+      maxLength: 32
+      nullable: true
+      example: 1%password!
+    NullableShortTextType:
+      type: string
+      minLength: 1
+      maxLength: 4096
+      nullable: true
+      example: I think we should keep kpr.app as a backend tool
+    NullableStringIdType:
+      type: string
+      minLength: 4
+      maxLength: 512
+      nullable: true
+      example: '103893822843346636622'
+    NullableUsernameType:
+      type: string
+      minLength: 4
+      maxLength: 32
+      nullable: true
+      example: my user name
+    NullableURLType:
+      type: string
+      format: uri
+      nullable: true
+      example: 'https://lh3.googleusercontent.com/a-/AOh14Gjwet8KDrdXwsdyux'
+    NullableUUIDType:
+      type: string
+      format: uuid
+      nullable: true
+      example: f86bc02d-051f-4efa-a372-80dc0b6d4235
+    NullType:
+      type: boolean
+      nullable: true
+      example: 'null'
+    PasswordType:
+      type: string
+      minLength: 8
+      maxLength: 32
+      example: 1%password!
+    ProviderType:
+      type: string
+      enum:
+        - gmail
+        - googlecalendar
+        - instagram
+        - linkedin
+        - microsoftcalendar
+        - outlook
+        - twitter
+        - zoom
+      example: gmail
+    RefreshTokenType:
+      type: string
+      minLength: 64
+      maxLength: 2048
+      example: 1//0f3_7fcGe6aD0CgYIARAAGA8SNwF-L9IrVRnT3cB3kEea
+    StringIdType:
+      type: string
+      minLength: 4
+      maxLength: 512
+      example: '103893822843346636622'
+    URLNextType:
+      type: string
+      format: url
+      example: 'https://api.josu.ai/v0/messages?pageState=1031373338646262653'
+    URLSelfType:
+      type: string
+      format: url
+      example: 'https://api.josu.ai/v0/messages'
+    URLType:
+      type: string
+      format: uri
+      example: 'https://lh3.googleusercontent.com/a-/AOh14Gjwet8KDrdXwsdyux'
+    UUIDType:
+      type: string
+      format: uuid
+      example: f86bc02d-051f-4efa-a372-80dc0b6d4235
+    UsernameType:
+      type: string
+      minLength: 4
+      maxLength: 32
+      example: my user name
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    UserIdCookie:
+      type: apiKey
+      in: cookie
+      name: userId
+    UserIdSecCookie:
+      type: apiKey
+      in: cookie
+      name: userId.sec
+tags:
+  - name: connect
+    description: Connect Google or Microsoft account
+  - name: login
+    description: Login with OAuth or credentials
+  - name: password
+    description: Reset password
+  - name: query
+    description: Query user by account or username
+  - name: autojoins
+    description: Meetings autojoin queue
+  - name: meetings
+    description: >-
+      Josu calendar meetings (unified intefrace over Google and Microsoft
+      calendar events)
+  - name: profiles
+    description: >-
+      Josu profiles (abstraction over different communication channels and
+      accounts)
+  - name: spec
+    description: OpenAPI specification
+  - name: users
+    description: Josu users (distinct from Google or Microsoft accounts)
+  - name: analytics
+    description: Serve talk breakdown between speakers for given timeframe
+  - name: annotations
+    description: Annotations table
+  - name: recording
+    description: Recordings table
+  - name: speaker
+    description: Speakers table
+  - name: oauth
+    description: OAuth authentication for josu.ai
+  - name: emotions
+    description: Get emotional breakdown analysis of conversations
+  - name: gmail
+    description: Gmail emails
+  - name: outlook
+    description: Outlook emails
+  - name: emails
+    description: Queue for Gmail and Outlook emails
+  - name: queue
+    description: LEGACY Queue for recordings
+  - name: topics
+    description: Queue for topics analysis
+  - name: recordings
+    description: API over recordings table
+  - name: channels
+    description: >-
+      Slack channels, namely: channels, groups, instant messages (im),
+      multiparty im (mpim)
+  - name: messages
+    description: Slack messages
+  - name: workspaces
+    description: Workspaces and teams
+  - name: speakers
+    description: Speakers are authors of messages across different platforms
+  - name: accounts
+    description: >-
+      Generic endpoint for accessing accounts by provider
+      gmail|googlecalendar|instagram|slack|social|twitter|zoom
+  - name: social
+    description: Endpoint for social account modification
+  - name: twitter
+    description: All kind of Twitter
+  - name: stripe
+    description: All kind of Stripe

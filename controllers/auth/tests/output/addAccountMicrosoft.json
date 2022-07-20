@@ -1,0 +1,37 @@
+{
+  "user_id": "ce6a20e7-5c12-47e2-a6d3-d9dabe16aa24",
+  "__accounts_google": {},
+  "__accounts_microsoft": {
+    "3d2a8ee3053a8ca1": {
+      "id": "3d2a8ee3053a8ca1",
+      "autojoin_zoom": false,
+      "email": "vf.velt@outlook.com",
+      "first_name": "Vf",
+      "last_name": "Velt",
+      "name": "Vf Velt",
+      "provider": "microsoft",
+      "refresh_token": "M.R3_BAY.CW68m1mO3A2h7ic5p25AJ4mud4finBd1oDNfnLX8D*wqcOutAA!g8egzpM5knSNvboQJIhsZPCDOBrwuLhwA!KW88d7caDPp7m70Ptq67AKDsoExzRTZHlQvC4XREsIBRBK5OXqeh7wrW7HyjxCd6FccCOUqXszocmiVL4mp5n5yfJ8EoxtWSoTYSta6T!w4eGbO5OEa9OCrr3hrxr1wTmsihBQxwS2rWgPiRprvFqWF!iXgmW7x8PvzzRsLqAekdnmN5FKhCjrXCC2MiVPnpdKMGtpSgUn9NR1BE*f10XYK1BRbsjRT9QE9mD1CFZ1P2xy3jYBoTMvYby4gRHUZerPmkLkuHCRzt!zRN*p3jOfo2tio47*7sP6B3kt9a9jNmJBF833gmUqrdAbdlOibnx7UoSYitthVnrHYm1YUM9FUehv5Sw03tSfaQxMrT6hh7Vk9Ay!ocyjgZrYacWuo5Z22KJUDM!NTbiiR2o4*edxqxIB0T5R44FFM1lNFsoB!wS2q!PHdyqQ2gmj!N3jhocg$"
+    },
+    "799c14fde8b20e21": {
+      "id": "799c14fde8b20e21",
+      "autojoin_zoom": false,
+      "email": "ll.td.fs@outlook.com",
+      "first_name": "Anna",
+      "last_name": "Avina",
+      "name": "Anna Avina",
+      "provider": "microsoft",
+      "refresh_token": "M.R3_BAY.CaorvAkkk4rQlpM3LC!abQQGCnSPQegbO5Bgie3YdUg**oJmhChLvZBmBufTlQSFuBYG6QA2Jbrng7K4zdBwXfDmRKbxcmF1sAl5PoTnSixUFn9KH7oz5uBL2Eq0AnYzPrPMlKlLTRz78T72Sc2bxOBxbQ!G62I0zEwbZat9612Jk2Zn8sYFAKacguqh5uSzqq!swwvj7sCZLuR4cLR6Oi3oBipfMBt4Js!oorwCmOUICHdDWiWMZK*SDgOVnxZYb6M!yYnqxx2GisVoaiKGLAOBOCwi0gGO2N3SNpqDL9DVS5Xri!eHPzGAApAyIynxP6d3VHIaUHux44NgseTbtMyES8zK3ZFfWyiRqoiJAroeFrYoGbWR0dMyEr4pB2kblgHjhYTH*d!TT*4Xd5lcx79W9RNYqb5*ikyDooZmTIx8lTbbUx*BKck87Xl2V2yDdQNFQ9h2zdZbwWjC5UgGc4b3HEdnxS6kGa68a8yCKXz6SoiVRz042!iNPktKDHRNqcNeJCdY8N2YxfUTXGGoFjY$"
+    }
+  },
+  "__calendars_google": {},
+  "__calendars_microsoft": {},
+  "autojoin_zoom": false,
+  "devices": [],
+  "email": "vf.velt@outlook.com",
+  "first_name": "Vf",
+  "last_name": "Velt",
+  "password": "$2b$12$6pFHgo98RWU5mXX6PymFeeWvmiRvWgyL2.2nC5bTq7885cwAoIWHG",
+  "profile_id": null,
+  "username": null,
+  "userpic_url": "https://josu.s3.us-east-2.amazonaws.com/img/userpics/ce6a20e7-5c12-47e2-a6d3-d9dabe16aa24.jpeg"
+}

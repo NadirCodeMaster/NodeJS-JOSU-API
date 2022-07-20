@@ -1,0 +1,19 @@
+---
+components:
+  schemas:
+    Wordcount:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        word_count:
+          type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - word_count

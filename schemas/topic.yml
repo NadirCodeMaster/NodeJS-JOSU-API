@@ -1,0 +1,28 @@
+---
+components:
+  schemas:
+    Topic:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        topics:
+          type: array
+          nullable: true
+          items:
+            type: string
+        topics_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - topics
+        - topics_weight

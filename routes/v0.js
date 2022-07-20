@@ -1,0 +1,47 @@
+const express = require('express')
+
+const { isAuthenticated } = require('../controllers/isAuthenticated')
+const { logResponse } = require('../controllers/logging')
+const { wrapResponse } = require('../controllers/jsonApi')
+
+const authRouter = require('./auth')
+const meetingsRouter = require('./meetings')
+const profilesRouter = require('./profiles')
+const specRouter = require('./spec')
+const usersRouter = require('./users')
+
+const analyticsRouter = require('./analytics')
+const annotationsRouter = require('./annotations')
+const emotionRouter = require('./emotion')
+const gmailRouter = require('./gmail')
+const outlookRouter = require('./outlook')
+const queueRouter = require('./queue')
+const recordingsRouter = require('./recordings')
+const slackRouter = require('./slack')
+const syncRouter = require('./sync')
+const topicsRouter = require('./topics')
+const twitterRouter = require('./twitter')
+const stripeRouter = require('./stripe')
+
+const v0 = new express.Router()
+
+v0.use('/auth', authRouter)
+v0.use('/meetings', meetingsRouter, wrapResponse, logResponse)
+v0.use('/profiles', profilesRouter, wrapResponse, logResponse)
+v0.use('/spec', specRouter)
+v0.use('/users', usersRouter, wrapResponse, logResponse)
+
+v0.use('/analytics', isAuthenticated, analyticsRouter)
+v0.use('/annotations', isAuthenticated, annotationsRouter)
+v0.use('/emotion', isAuthenticated, emotionRouter)
+v0.use('/gmail', isAuthenticated, gmailRouter)
+v0.use('/outlook', isAuthenticated, outlookRouter)
+v0.use('/queue', isAuthenticated, queueRouter)
+v0.use('/recordings', isAuthenticated, recordingsRouter)
+v0.use('/slack', isAuthenticated, slackRouter)
+v0.use('/sync', isAuthenticated, syncRouter)
+v0.use('/topics', isAuthenticated, topicsRouter)
+v0.use('/twitter', isAuthenticated, twitterRouter)
+v0.use('/stripe', isAuthenticated, stripeRouter, wrapResponse, logResponse)
+
+module.exports = v0

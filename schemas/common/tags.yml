@@ -1,0 +1,124 @@
+---
+tags:
+  # Auth
+  - name: connect
+    description: Connect Google or Microsoft account
+  - name: login
+    description: Login with OAuth or credentials
+  - name: password
+    description: Reset password
+  - name: query
+    description: Query user by account or username
+
+  # Meetings
+  - name: autojoins
+    description: Meetings autojoin queue
+  - name: meetings
+    description: >-
+      Josu calendar meetings
+      (unified intefrace over Google and Microsoft calendar events)
+
+  # Profiles
+  - name: profiles
+    description: >-
+      Josu profiles
+      (abstraction over different communication channels and accounts)
+
+  # Spec
+  - name: spec
+    description: OpenAPI specification
+
+  # Users
+  - name: users
+    description: >-
+      Josu users
+      (distinct from Google or Microsoft accounts)
+
+  ### LEGACY ###
+
+  # Analytics
+  - name: analytics
+    description: >-
+      Serve talk breakdown between speakers for given timeframe
+
+  # Annotations
+  - name: annotations
+    description: Annotations table
+  - name: recording
+    description: Recordings table
+  - name: speaker
+    description: Speakers table
+
+  # Auth
+  - name: oauth
+    description: OAuth authentication for josu.ai
+  - name: password
+    description: Password authentication for josu.ai
+
+  # Emotions
+  - name: emotions
+    description: Get emotional breakdown analysis of conversations
+
+  # Gmail
+  - name: analytics
+    description: Analytics on Gmail emails
+  - name: gmail
+    description: Gmail emails
+
+  # Outlook
+  - name: analytics
+    description: Analytics on Outlook emails
+  - name: outlook
+    description: Outlook emails
+
+  # Queue
+  - name: emails
+    description: Queue for Gmail and Outlook emails
+  - name: emotions
+    description: Queue for emotional analysis
+  - name: queue
+    description: LEGACY Queue for recordings
+  - name: topics
+    description: Queue for topics analysis
+
+  # Recordings
+  - name: recordings
+    description: API over recordings table
+
+  # Slack
+  - name: channels
+    description: >-
+      Slack channels, namely:
+      channels, groups, instant messages (im), multiparty im (mpim)
+  - name: messages
+    description: Slack messages
+  - name: queue
+    description: >-
+      Queue which holds downloaded but not yet processed Slack messages
+  - name: workspaces
+    description: Workspaces and teams
+
+  # Speakers
+  - name: speakers
+    description: Speakers are authors of messages across different platforms
+
+  # Topics
+  - name: accounts
+    description: >-
+      Generic endpoint for accessing accounts by provider
+      gmail|googlecalendar|instagram|slack|social|twitter|zoom
+  - name: social
+    description: >-
+      Endpoint for social account modification
+
+  # Sync
+  - name: topics
+    description: Legacy entity for holding keywords in audio transcripts
+
+  # Twitter
+  - name: twitter
+    description: All kind of Twitter
+
+  # Stripe
+  - name: stripe
+    description: All kind of Stripe

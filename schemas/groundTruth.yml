@@ -1,0 +1,20 @@
+---
+components:
+  schemas:
+    GroundTruth:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        category_ground_truth:
+          type: string
+          nullable: true
+      required:
+        - id
+        - user_id
+        - account_id
+        - category_ground_truth

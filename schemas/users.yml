@@ -1,0 +1,263 @@
+---
+components:
+  requestBodies:
+    UserAccount:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  account:
+                    $ref: "#/components/schemas/AccountItem"
+                  user:
+                    $ref: "#/components/schemas/UserItem"
+                required:
+                  - account
+                  - user
+            required:
+              - data
+    UserAutojoin:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  account_zoom:
+                    type: boolean
+                  user:
+                    $ref: "#/components/schemas/UserItem"
+                required:
+                  - autojoin_zoom
+                  - user
+            required:
+              - data
+    UserDevice:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  device:
+                    $ref: "#/components/schemas/UUIDType"
+                  user:
+                    $ref: "#/components/schemas/UserItem"
+                required:
+                  - device
+                  - user
+            required:
+              - data
+    UserPassword:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  password:
+                    type: object
+                    properties:
+                      new_password:
+                        $ref: "#/components/schemas/PasswordType"
+                      new_password_confirm:
+                        $ref: "#/components/schemas/PasswordType"
+                      old_password:
+                        $ref: "#/components/schemas/NullablePasswordType"
+                    required:
+                      - new_password
+                      - new_password_confirm
+                      - old_password
+                  user:
+                    $ref: "#/components/schemas/UserItem"
+                required:
+                  - password
+                  - user
+            required:
+              - data
+    UserUsername:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  new_username:
+                    $ref: "#/components/schemas/UsernameType"
+                  user:
+                    $ref: "#/components/schemas/UserItem"
+                required:
+                  - new_username
+                  - user
+            required:
+              - data
+    User:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/UserItem"
+            required:
+              - data
+  responses:
+    200_OK_User:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/UserItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+  schemas:
+    AccountItem:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        autojoin_zoom:
+          type: boolean
+        email:
+          $ref: "#/components/schemas/EmailType"
+        first_name:
+          $ref: "#/components/schemas/FirstNameType"
+        last_name:
+          $ref: "#/components/schemas/LastNameType"
+        name:
+          $ref: "#/components/schemas/NameType"
+        provider:
+          $ref: "#/components/schemas/CalendarProviderType"
+        refresh_token:
+          $ref: "#/components/schemas/RefreshTokenType"
+      required:
+        - id
+        - autojoin_zoom
+        - email
+        - first_name
+        - last_name
+        - name
+        - provider
+        - refresh_token
+    CalendarItem:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        account:
+          $ref: "#/components/schemas/StringIdType"
+        channel:
+          $ref: "#/components/schemas/NullableStringIdType"
+        expires:
+          $ref: "#/components/schemas/NullableDateTimeType"
+        provider:
+          $ref: "#/components/schemas/CalendarProviderType"
+        refresh_token:
+          $ref: "#/components/schemas/RefreshTokenType"
+      required:
+        - id
+        - account
+        - channel
+        - expires
+        - provider
+        - refresh_token
+    UserItem:
+      type: object
+      properties:
+        user_id:
+          $ref: "#/components/schemas/UUIDType"
+        __accounts_google:
+          $ref: "#/components/schemas/UserAccountsItem"
+        __accounts_microsoft:
+          $ref: "#/components/schemas/UserAccountsItem"
+        __calendars_google:
+          $ref: "#/components/schemas/UserCalendarsItem"
+        __calendars_microsoft:
+          $ref: "#/components/schemas/UserCalendarsItem"
+        autojoin_zoom:
+          type: boolean
+        devices:
+          type: array
+          minItems: 0
+          maxItems: 16
+          nullable: true
+          items:
+            $ref: "#/components/schemas/UUIDType"
+        email:
+          $ref: "#/components/schemas/EmailType"
+        first_name:
+          $ref: "#/components/schemas/FirstNameType"
+        last_name:
+          $ref: "#/components/schemas/LastNameType"
+        password:
+          $ref: "#/components/schemas/NullablePasswordHashType"
+        profile_id:
+          $ref: "#/components/schemas/UUIDType"
+        username:
+          $ref: "#/components/schemas/NullableUsernameType"
+        userpic_url:
+          $ref: "#/components/schemas/NullableURLType"
+      required:
+        - user_id
+        - __accounts_google
+        - __accounts_microsoft
+        - __calendars_google
+        - __calendars_microsoft
+        - autojoin_zoom
+        - devices
+        - email
+        - first_name
+        - last_name
+        - password
+        - profile_id
+        - username
+        - userpic_url
+    UserAccountsItem:
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/AccountItem"
+      example:
+        "115244245744751925401":
+          autojoin_zoom: false
+          email: "vf.velt@gmail.com"
+          first_name: "Oleksii"
+          last_name: "Dorozhkin"
+          name: "Oleksii Dorozhkin"
+          provider: "google"
+          refresh_token: "1//0f3_7fcGe6aD0CgYIARAAGA8SNwF"
+    UserCalendarsItem:
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/CalendarItem"
+      example:
+        "vf.velt@gmail.com":
+          account: "115244245744751925401"
+          channel: "f86bc02d-051f-4efa-a372-80dc0b6d4235"
+          expires: "2020-08-09T21:00:00.000Z"
+          provider: "google"
+          refresh_token: "1//0f3_7fcGe6aD0CgYIARAAGA8SNwF"

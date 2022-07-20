@@ -1,0 +1,39 @@
+---
+components:
+  schemas:
+    Keyword:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        keywords:
+          type: array
+          nullable: true
+          items:
+            type: string
+        keywords_endpos:
+          type: array
+          items:
+            type: string
+        keywords_startpos:
+          type: array
+          nullable: true
+          items:
+            type: string
+        keywords_weight:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - keywords
+        - keywords_endpos
+        - keywords_startpos
+        - keywords_weight

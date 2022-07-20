@@ -1,0 +1,14 @@
+---
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          $ref: "#/components/schemas/URLType"
+        next:
+          $ref: "#/components/schemas/URLType"
+        resource:
+          $ref: "#/components/schemas/URLType"
+      required:
+        - self

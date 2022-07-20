@@ -1,0 +1,51 @@
+{
+  "account": {
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users/$entity",
+    "displayName": "Anna Avina",
+    "surname": "Avina",
+    "givenName": "Anna",
+    "id": "799c14fde8b20e21",
+    "userPrincipalName": "ll.td.fs@outlook.com",
+    "businessPhones": [],
+    "jobTitle": null,
+    "mail": null,
+    "mobilePhone": null,
+    "officeLocation": null,
+    "preferredLanguage": null
+  },
+  "tokens": {
+    "token_type": "Bearer",
+    "scope": "https://graph.microsoft.com/User.Read https://graph.microsoft.com/Calendars.ReadWrite https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Mail.ReadWrite",
+    "expires_in": 3600,
+    "ext_expires_in": 3600,
+    "access_token": "EwBoA8l6BAAU6k7+XVQzkGyMv7VHB/h4cHbJYRAAAfcmcJoTxsT3YoMlUJ1+f7h8LlTldzXHrVD+f/MmlmrAA6eFqpkhv7QaaK3kJz5Vda6M+FoOhHHQlzm1xd4i8R6Xeovv8s+YXiY3qbZMR5tlcE8k6XVjDAb5sZstasQ7cKONro1dNUQXVI6Xv952xseyHLEVTIXqL/M9d2GeE6HZ0PhkWCLqnuskwOVAHlWqFnrHJ/HW80hK6iwyfiDyJzUiwB3i42BqbJQEO4+nil8UCSZmrNTGY6k/8xpnMuCKcteY1VtbVXq/AoKnh6HEh8KuHYunXeWCK4EamQOOnJdjIOGC0KEEAF9WP/dUjDfwakH/r37stPvS64k0s7N+YqYDZgAACPjOUARew39gOAL5LYwD7bhU3/TaJvozKW34GKgxeLABdWcfnA2nFiM1xE1AbFgUk5KW52/4sg+0uJG2VUbrWbT0KXB57t5KJppc6HMVAoksasqDsHL79KAFMLf9RxE+CXtDXjw+N4Yi1dhH94RpAdQYqEXPqrunIIy2gJCrUdIxVDYL2UoQNo+QC3V9lCzVJDrQmvYsMCA3M3wDIvrPle9Jy4927XYKqduHLkHmmNiu7jiuiFzXUsirv2otztaCLoyQcS8zBVY/pm9ZzZhXDPy27hXA2Vd9WRZzZtbHVMbmBoI4QZPhinwz91QkHgPr4Jq2cBxYyut0/3Tmbh07/oH85eRh7jxU9C1iZ1P/A6sgAUNSiJNkuS4wjtVxkHaLMbGxZLz8VerIRhu+pIjv/Dh8GTnc237XVMKhpm5DoyaOxOWcJk40CG1vLmAlez2MfcFjyUNKdpuPsqbsQRcMBBhRT+myFOKbQJU6X4K+NvFb+YRmT8aFtyPRnjlkwhOhFnOTfro25sJ6FRhry1C+RWBX9Mhq//v1iQQJVkH92AJn5TAu7GmzEaLR1Nbm3GKrihsh+Gg3WROC/tsZxH6cxdj/AKd22SOqfa8WwdoWbuRJ1m6MjXF+IFwzt18pCOeeewLZU2vW4cEYT5F/3l0ePCWzwdvLKuN0ewauGmNjlUX6emBIsvxftz8PbYTfb0LcDOqDQWMUMx5YXfGC4SD8VyxrJ0BocNV0vGR27sRiglCAlmahhydTthjZ31CaoBTfIxKUewI=",
+    "refresh_token": "M.R3_BAY.CaorvAkkk4rQlpM3LC!abQQGCnSPQegbO5Bgie3YdUg**oJmhChLvZBmBufTlQSFuBYG6QA2Jbrng7K4zdBwXfDmRKbxcmF1sAl5PoTnSixUFn9KH7oz5uBL2Eq0AnYzPrPMlKlLTRz78T72Sc2bxOBxbQ!G62I0zEwbZat9612Jk2Zn8sYFAKacguqh5uSzqq!swwvj7sCZLuR4cLR6Oi3oBipfMBt4Js!oorwCmOUICHdDWiWMZK*SDgOVnxZYb6M!yYnqxx2GisVoaiKGLAOBOCwi0gGO2N3SNpqDL9DVS5Xri!eHPzGAApAyIynxP6d3VHIaUHux44NgseTbtMyES8zK3ZFfWyiRqoiJAroeFrYoGbWR0dMyEr4pB2kblgHjhYTH*d!TT*4Xd5lcx79W9RNYqb5*ikyDooZmTIx8lTbbUx*BKck87Xl2V2yDdQNFQ9h2zdZbwWjC5UgGc4b3HEdnxS6kGa68a8yCKXz6SoiVRz042!iNPktKDHRNqcNeJCdY8N2YxfUTXGGoFjY$"
+  },
+  "user": {
+    "user_id": "ce6a20e7-5c12-47e2-a6d3-d9dabe16aa24",
+    "__accounts_google": {},
+    "__accounts_microsoft": {
+      "3d2a8ee3053a8ca1": {
+        "id": "3d2a8ee3053a8ca1",
+        "autojoin_zoom": false,
+        "email": "vf.velt@outlook.com",
+        "first_name": "Vf",
+        "last_name": "Velt",
+        "name": "Vf Velt",
+        "provider": "microsoft",
+        "refresh_token": "M.R3_BAY.CW68m1mO3A2h7ic5p25AJ4mud4finBd1oDNfnLX8D*wqcOutAA!g8egzpM5knSNvboQJIhsZPCDOBrwuLhwA!KW88d7caDPp7m70Ptq67AKDsoExzRTZHlQvC4XREsIBRBK5OXqeh7wrW7HyjxCd6FccCOUqXszocmiVL4mp5n5yfJ8EoxtWSoTYSta6T!w4eGbO5OEa9OCrr3hrxr1wTmsihBQxwS2rWgPiRprvFqWF!iXgmW7x8PvzzRsLqAekdnmN5FKhCjrXCC2MiVPnpdKMGtpSgUn9NR1BE*f10XYK1BRbsjRT9QE9mD1CFZ1P2xy3jYBoTMvYby4gRHUZerPmkLkuHCRzt!zRN*p3jOfo2tio47*7sP6B3kt9a9jNmJBF833gmUqrdAbdlOibnx7UoSYitthVnrHYm1YUM9FUehv5Sw03tSfaQxMrT6hh7Vk9Ay!ocyjgZrYacWuo5Z22KJUDM!NTbiiR2o4*edxqxIB0T5R44FFM1lNFsoB!wS2q!PHdyqQ2gmj!N3jhocg$"
+      }
+    },
+    "__calendars_google": {},
+    "__calendars_microsoft": {},
+    "autojoin_zoom": false,
+    "devices": [],
+    "email": "vf.velt@outlook.com",
+    "first_name": "Vf",
+    "last_name": "Velt",
+    "password": "$2b$12$6pFHgo98RWU5mXX6PymFeeWvmiRvWgyL2.2nC5bTq7885cwAoIWHG",
+    "profile_id": null,
+    "username": null,
+    "userpic_url": "https://josu.s3.us-east-2.amazonaws.com/img/userpics/ce6a20e7-5c12-47e2-a6d3-d9dabe16aa24.jpeg"
+  }
+}

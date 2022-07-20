@@ -1,0 +1,405 @@
+---
+components:
+  parameters:
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUIDType'
+      description: Josu user_id
+    StripeCustomerId:
+      name: customer_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Customer Id
+    StripeProductId:
+      name: product_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Product Id
+    StripePriceId:
+      name: price_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Price Id
+    StripeCardId:
+      name: card_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Stripe Card Id
+  requestBodies:
+    Customer:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/components/schemas/StringIdType"
+              email:
+                $ref: "#/components/schemas/StringIdType"
+            required:
+              - data
+    Product:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/components/schemas/StringIdType"
+            required:
+              - data
+    Price:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: "#/components/schemas/StringIdType"
+              unit_amount:
+                $ref: "#/components/schemas/StringIdType"
+              product_id:
+                $ref: "#/components/schemas/StringIdType"
+            required:
+              - data
+    Card:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              customer_id:
+                $ref: "#/components/schemas/StringIdType"
+              stripe_token:
+                $ref: "#/components/schemas/StringIdType"
+            required:
+              - data
+    Subscribe:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              price_id:
+                $ref: "#/components/schemas/StringIdType"
+            required:
+              - data
+  responses:
+    202_OK_Customer:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/Customer"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    200_OK_Customer:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripeCustomer"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    202_OK_Product:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripeProductItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    202_OK_Price:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripePriceItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    202_OK_Card:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripeCardItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    202_OK_Delete_Stripe_Object:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/DeleteStripeCustomer"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    200_OK_Stripe_Customers:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripeCustomerItem"
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: "#/components/schemas/StripeCustomerItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    200_OK_Stripe_Products:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripeProductItem"
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: "#/components/schemas/StripeProductItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    200_OK_Stripe_Prices:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripePriceItem"
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: "#/components/schemas/StripePriceItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    200_OK_Stripe_Cards:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/StripeCardItem"
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: "#/components/schemas/StripeCardItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    202_OK_Subscribe:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/Subscription"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    200_OK_Subscriptions:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/Subscription"
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: "#/components/schemas/Subscription"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+  schemas:
+    Customer:
+      type: object
+      properties:
+        user_id:
+          $ref: "#/components/schemas/UUIDType"
+        id:
+          $ref: "#/components/schemas/UUIDType"
+        customer_id:
+          $ref: "#/components/schemas/StringIdType"
+        customer_name:
+          $ref: "#/components/schemas/StringIdType"
+        card_brand:
+          $ref: "#/components/schemas/NullableStringIdType"
+        card_last4:
+          $ref: "#/components/schemas/NullableStringIdType"
+      required:
+        - user_id
+        - id
+        - customer_name
+    StripeCustomer:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        name:
+          $ref: "#/components/schemas/StringIdType"
+        email:
+          $ref: "#/components/schemas/StringIdType"
+      required:
+        - id
+    DeleteStripeCustomer:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        object:
+          $ref: "#/components/schemas/StringIdType"
+        deleted:
+          $ref: "#/components/schemas/NullableBooleanType"
+      required:
+        - id
+        - object
+        - deleted
+    StripeCustomerItem:
+      type: object
+      properties:
+        customer_id:
+          $ref: "#/components/schemas/StringIdType"
+        name:
+          $ref: "#/components/schemas/NullableStringIdType"
+        email:
+          $ref: "#/components/schemas/NullableStringIdType"
+    StripeProductItem:
+      type: object
+      properties:
+        product_id:
+          $ref: "#/components/schemas/StringIdType"
+        name:
+          $ref: "#/components/schemas/NullableStringIdType"
+        unit_amount:
+          type: integer
+    StripePriceItem:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        nickname:
+          $ref: "#/components/schemas/NullableStringIdType"
+        unit_amount:
+          type: integer
+    StripeCardItem:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        brand:
+          $ref: "#/components/schemas/StringIdType"
+        customer:
+          $ref: "#/components/schemas/StringIdType"
+    Subscription:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/StringIdType"

@@ -1,0 +1,30 @@
+---
+components:
+  parameters:
+    FetchSize:
+      name: fetchSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 256
+        default: 16
+      description: Pagination size
+    PageState:
+      name: pageState
+      in: query
+      required: false
+      schema:
+        type: string
+        minLength: 64
+        maxLength: 512
+        example: "1031373338646262653964633432396431180010f86bc02kldsjh9382"
+      description: Cassandra nextPage token
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/UUIDType"
+      description: Josu user_id

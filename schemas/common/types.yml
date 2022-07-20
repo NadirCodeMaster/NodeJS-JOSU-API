@@ -1,0 +1,194 @@
+---
+components:
+  schemas:
+    CalendarProviderType:
+      type: string
+      enum:
+        - "google"
+        - "microsoft"
+        - "zoom"
+      example: "google"
+    CategoryType:
+      type: string
+      enum:
+        - "Event Invite"
+        - "Newsletter"
+        - "Personal"
+        - "Transactional"
+        - "Spam"
+      example: "Newsletter"
+    DateTimeType:
+      type: string
+      format: date-time
+      example: "2020-08-09T21:00:00.000Z"
+    EmailType:
+      type: string
+      format: email
+      example: "vf.velt@gmail.com"
+    EmotionType:
+      type: string
+      enum:
+        - "admiration"
+        - "amusement"
+        - "anger"
+        - "annoyance"
+        - "approval"
+        - "caring"
+        - "confusion"
+        - "curiosity"
+        - "desire"
+        - "disappointment"
+        - "disapproval"
+        - "disgust"
+        - "embarrassment"
+        - "excitement"
+        - "fear"
+        - "gratitude"
+        - "grief"
+        - "joy"
+        - "love"
+        - "nervousness"
+        - "neutral"
+        - "optimism"
+        - "pride"
+        - "realization"
+        - "relief"
+        - "remorse"
+        - "sadness"
+        - "surprise"
+      example: "neutral"
+    JWTAuthTokenType:
+      type: string
+      minLength: 64
+      maxLength: 1024
+      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTE1MjQ0"
+    FirstNameType:
+      type: string
+      minLength: 1
+      maxLength: 32
+      example: "Oleksii"
+    LastNameType:
+      type: string
+      minLength: 1
+      maxLength: 32
+      example: "Dorozhkin"
+    MeetingStatusType:
+      type: string
+      nullable: true
+      enum:
+        - "yes"
+        - "maybe"
+        - "no"
+        - "unknown"
+        - "deleted"
+    NameType:
+      type: string
+      minLength: 0
+      maxLength: 128
+      example: "Oleksii Dorozhkin"
+    NullableBooleanType:
+      type: boolean
+      nullable: true
+    NullableDateTimeType:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2020-08-09T21:00:00.000Z"
+    NullableNameType:
+      type: string
+      minLength: 0
+      maxLength: 256
+      nullable: true
+      example: "Oleksii Dorozhkin"
+    NullablePasswordHashType:
+      type: string
+      minLength: 48
+      maxLength: 64
+      nullable: true
+      example: "$2b$12$1TXi0Ro6wdmvIvtvd4g3o.MKj2SdikTBiiRaadTA9zoU0h5h5wBhm"
+    NullablePasswordType:
+      type: string
+      minLength: 8
+      maxLength: 32
+      nullable: true
+      example: "1%password!"
+    NullableShortTextType:
+      type: string
+      minLength: 1
+      maxLength: 4096
+      nullable: true
+      example: "I think we should keep kpr.app as a backend tool"
+    NullableStringIdType:
+      type: string
+      minLength: 4
+      maxLength: 512
+      nullable: true
+      example: "103893822843346636622"
+    NullableUsernameType:
+      type: string
+      minLength: 4
+      maxLength: 32
+      nullable: true
+      example: "my user name"
+    NullableURLType:
+      type: string
+      format: uri
+      nullable: true
+      example: "https://lh3.googleusercontent.com/a-/AOh14Gjwet8KDrdXwsdyux"
+    NullableUUIDType:
+      type: string
+      format: uuid
+      nullable: true
+      example: "f86bc02d-051f-4efa-a372-80dc0b6d4235"
+    NullType:
+      type: boolean
+      nullable: true
+      example: "null"
+    PasswordType:
+      type: string
+      minLength: 8
+      maxLength: 32
+      example: "1%password!"
+    ProviderType:
+      type: string
+      enum:
+        - "gmail"
+        - "googlecalendar"
+        - "instagram"
+        - "linkedin"
+        - "microsoftcalendar"
+        - "outlook"
+        - "twitter"
+        - "zoom"
+      example: "gmail"
+    RefreshTokenType:
+      type: string
+      minLength: 64
+      maxLength: 2048
+      example: "1//0f3_7fcGe6aD0CgYIARAAGA8SNwF-L9IrVRnT3cB3kEea"
+    StringIdType:
+      type: string
+      minLength: 4
+      maxLength: 512
+      example: "103893822843346636622"
+    URLNextType:
+      type: string
+      format: url
+      example: "https://api.josu.ai/v0/messages?pageState=1031373338646262653"
+    URLSelfType:
+      type: string
+      format: url
+      example: "https://api.josu.ai/v0/messages"
+    URLType:
+      type: string
+      format: uri
+      example: "https://lh3.googleusercontent.com/a-/AOh14Gjwet8KDrdXwsdyux"
+    UUIDType:
+      type: string
+      format: uuid
+      example: "f86bc02d-051f-4efa-a372-80dc0b6d4235"
+    UsernameType:
+      type: string
+      minLength: 4
+      maxLength: 32
+      example: "my user name"

@@ -1,0 +1,208 @@
+---
+components:
+  parameters:
+    After:
+      name: after
+      in: query
+      schema:
+        $ref: '#/components/schemas/DateTimeType'
+      allowReserved: true
+      description: Lower bound of start time
+    Before:
+      name: before
+      in: query
+      schema:
+        $ref: '#/components/schemas/DateTimeType'
+      allowReserved: true
+      description: Upper bound of start time
+    MeetingId:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/StringIdType'
+      description: Google or Microsoft meeting id
+    Start:
+      name: start
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/DateTimeType'
+      description: Start time of the meeting
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUIDType'
+      description: Josu user_id
+  requestBodies:
+    Meeting:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/MeetingItem"
+            required:
+              - data
+  responses:
+    200_OK_Meeting:
+      description: Query successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                oneOf:
+                  - $ref: "#/components/schemas/NullType"
+                  - $ref: "#/components/schemas/MeetingItem"
+                  - type: array
+                    minItems: 0
+                    maxItems: 256
+                    items:
+                      $ref: "#/components/schemas/MeetingItem"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+  schemas:
+    MeetingItem:
+      type: object
+      properties:
+        user_id:
+          $ref: "#/components/schemas/UUIDType"
+        start:
+          $ref: "#/components/schemas/DateTimeType"
+        id:
+          $ref: "#/components/schemas/StringIdType"
+        __account:
+          $ref: "#/components/schemas/StringIdType"
+        __attendees_profiles:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/UUIDType"
+        __calendar:
+          $ref: "#/components/schemas/StringIdType"
+        __invitee_email:
+          $ref: "#/components/schemas/EmailType"
+        __invitee_name:
+          $ref: "#/components/schemas/NullableNameType"
+        __invitee_profile:
+          $ref: "#/components/schemas/UUIDType"
+        __is_cancelled:
+          $ref: "#/components/schemas/NullableBooleanType"
+        __is_generic:
+          $ref: "#/components/schemas/NullableBooleanType"
+        __is_important:
+          $ref: "#/components/schemas/NullableBooleanType"
+        __is_invited:
+          $ref: "#/components/schemas/NullableBooleanType"
+        __is_rescheduled:
+          $ref: "#/components/schemas/NullableBooleanType"
+        __organizer_profile:
+          $ref: "#/components/schemas/UUIDType"
+        __provider:
+          $ref: "#/components/schemas/CalendarProviderType"
+        __zoom_end:
+          $ref: "#/components/schemas/NullableDateTimeType"
+        __zoom_is_invited:
+          $ref: "#/components/schemas/NullableBooleanType"
+        __zoom_meeting:
+          type: string
+          nullable: true
+          pattern: "^\\d{8,12}$"
+        __zoom_password:
+          $ref: "#/components/schemas/NullableStringIdType"
+        __zoom_start:
+          $ref: "#/components/schemas/NullableDateTimeType"
+        __zoom_summary:
+          $ref: "#/components/schemas/NullableShortTextType"
+        __zoom_transcript:
+          $ref: "#/components/schemas/NullableShortTextType"
+        __zoom_url:
+          $ref: "#/components/schemas/NullableURLType"
+        attachments:
+          type: array
+          nullable: true
+          items:
+            type: string
+        attendees_emails:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/EmailType"
+        attendees_names:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/NullableNameType"
+        created:
+          $ref: "#/components/schemas/DateTimeType"
+        end:
+          $ref: "#/components/schemas/DateTimeType"
+        is_organizer:
+          type: boolean
+        labels:
+          type: array
+          nullable: true
+          items:
+            type: string
+        link:
+          $ref: "#/components/schemas/URLType"
+        location:
+          $ref: "#/components/schemas/NullableShortTextType"
+        organizer_email:
+          $ref: "#/components/schemas/EmailType"
+        organizer_name:
+          $ref: "#/components/schemas/NullableNameType"
+        status:
+          $ref: "#/components/schemas/MeetingStatusType"
+        subject:
+          $ref: "#/components/schemas/NullableShortTextType"
+        text_content:
+          $ref: "#/components/schemas/NullableShortTextType"
+        updated:
+          $ref: "#/components/schemas/DateTimeType"
+      required:
+        - user_id
+        - start
+        - id
+        - __account
+        - __calendar
+        - __invitee_email
+        - __invitee_name
+        - __is_cancelled
+        - __is_generic
+        - __is_important
+        - __is_invited
+        - __is_rescheduled
+        - __provider
+        - __zoom_end
+        - __zoom_is_invited
+        - __zoom_meeting
+        - __zoom_password
+        - __zoom_start
+        - __zoom_summary
+        - __zoom_transcript
+        - __zoom_url
+        - attachments
+        - attendees_emails
+        - attendees_names
+        - created
+        - end
+        - is_organizer
+        - labels
+        - link
+        - location
+        - organizer_email
+        - organizer_name
+        - status
+        - subject
+        - text_content
+        - updated

@@ -1,0 +1,13 @@
+---
+components:
+  headers:
+    UserId:
+      schema:
+        type: string
+        minLength: 128
+        maxLength: 1024
+    UserIdSig:
+      schema:
+        type: string
+        minLength: 64
+        maxLength: 128

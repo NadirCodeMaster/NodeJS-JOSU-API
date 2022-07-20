@@ -1,0 +1,18 @@
+---
+components:
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    UserIdCookie:
+      type: apiKey
+      in: cookie
+      name: userId
+    UserIdSecCookie:
+      type: apiKey
+      in: cookie
+      name: userId.sec

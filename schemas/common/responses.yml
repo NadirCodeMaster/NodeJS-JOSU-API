@@ -1,0 +1,37 @@
+---
+components:
+  responses:
+    200_OK_Static:
+      description: Static file retrieved
+      content:
+        text/yaml:
+          schema:
+            type: object
+            format: byte
+        text/html:
+          schema:
+            type: object
+            format: byte
+    202_Accepted:
+      description: Command successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "#/components/schemas/NullType"
+              links:
+                $ref: "#/components/schemas/Links"
+            required:
+              - data
+              - links
+    # LEGACY
+    201_Created:
+      description: Created or updated successfully
+    204_No_Content:
+      description: Deleted successfully
+    400_Bad_Request:
+      description: Validation failed
+    501_Not_Implemented:
+      description: Placeholder

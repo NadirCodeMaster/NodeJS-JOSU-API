@@ -1,0 +1,28 @@
+---
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        account_id:
+          type: string
+        category:
+          type: array
+          nullable: true
+          items:
+            type: string
+        confidence_category:
+          type: array
+          nullable: true
+          items:
+            type: number
+      required:
+        - id
+        - user_id
+        - account_id
+        - category
+        - confidence_category
